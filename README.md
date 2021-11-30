@@ -1,1 +1,1 @@
-# advanced-fields-for-directorist
+# Advanced Fields for Directorist
