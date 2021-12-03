@@ -1,0 +1,19 @@
+{
+    "name": "directorist/directorist-advanced-fields",
+    "description": "Advanced fields for the Directorist plugin",
+    "type": "project",
+    "license": "GLP",
+    "authors": [
+        {
+            "name": "Mahfuz",
+            "email": "a_mahfuzul@yahoo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Inc\\": "./includes"
+        }
+    }
+}

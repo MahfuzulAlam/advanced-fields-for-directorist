@@ -1,0 +1,15 @@
+.directorist-details-info-wrap .directorist-single-info-iframe
+{
+    flex-direction: column;
+    align-items: flex-start !important;
+}
+
+.directorist-details-info-wrap .directorist-single-info-iframe .directorist-single-info__label
+{
+    margin-bottom: 10px
+}
+
+.directorist-details-info-wrap .directorist-single-info-iframe .directorist-single-info__value
+{
+    width: 100%
+}
