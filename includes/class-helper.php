@@ -70,4 +70,36 @@ class Helper
 
         return (isset($v)) ? $v : $default; // return the data if it is anything but NULL.
     }
+
+    public static function parse_youtube($url)
+    {
+        $embeddable_url = '';
+
+        $is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url);
+        if ($is_youtube) {
+            $pattern = '/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/';
+            preg_match($pattern, $url, $matches);
+            if (count($matches) && strlen($matches[7]) == 11) {
+                $embeddable_url = 'https://www.youtube.com/embed/' . $matches[7];
+            }
+        }
+
+        return $embeddable_url;
+    }
+
+    public static function parse_vimeo($url)
+    {
+        $embeddable_url = '';
+
+        $is_vimeo = preg_match('/vimeo\.com/i', $url);
+        if ($is_vimeo) {
+            $pattern = '/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/';
+            preg_match($pattern, $url, $matches);
+            if (count($matches)) {
+                $embeddable_url = 'https://player.vimeo.com/video/' . $matches[2];
+            }
+        }
+
+        return $embeddable_url;
+    }
 }
