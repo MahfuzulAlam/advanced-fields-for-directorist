@@ -13,13 +13,13 @@ class Advanced_Fields_Youtube
 
     public function __construct()
     {
-        add_filter('atbdp_form_custom_widgets', array($this, 'atbdp_form_custom_widgets'));
+        add_filter('atbdp_form_advanced_widgets', array($this, 'atbdp_form_advanced_widgets'));
         add_filter('atbdp_single_listing_content_widgets', array($this, 'atbdp_single_listing_content_widgets'));
         add_filter('directorist_field_template', array($this, 'directorist_field_template'), 10, 2);
         add_filter('directorist_single_item_template', array($this, 'directorist_single_item_template'), 10, 2);
     }
 
-    public function atbdp_form_custom_widgets($widgets)
+    public function atbdp_form_advanced_widgets($widgets)
     {
         $widgets['youtube-video'] = array(
             'label' => 'Youtube Video',
