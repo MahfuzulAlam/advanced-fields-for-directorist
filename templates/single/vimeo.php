@@ -2,8 +2,8 @@
 
 /**
  * @author  mahfuz
- * @since   6.7
- * @version 6.7
+ * @since   1.0
+ * @version 1.0
  */
 
 if (!defined('ABSPATH')) exit;
