@@ -1,0 +1,42 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Directorist - Advanced Fields\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-01-03 09:13+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.5.4; wp-5.8.2\n"
+"X-Domain: directorist-advanced-fields"
+
+#. URI of the plugin
+#. Author URI of the plugin
+msgid "#"
+msgstr ""
+
+#: includes/class-advanced-fields.php:33
+msgid "Advanced Fields"
+msgstr ""
+
+#: includes/class-advanced-fields.php:34
+msgid "Click on a field type to create an advanced field!"
+msgstr ""
+
+#. Name of the plugin
+msgid "Directorist - Advanced Fields"
+msgstr ""
+
+#. Author of the plugin
+msgid "M Alam"
+msgstr ""
+
+#. Description of the plugin
+msgid "This is an extension for Directorist Plugin."
+msgstr ""
