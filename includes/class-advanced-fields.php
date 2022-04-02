@@ -23,6 +23,8 @@ class Advanced_Fields
         include_once Helper::get_file_dir() . '/includes/fields/shortcode.php';
         include_once Helper::get_file_dir() . '/includes/fields/youtube.php';
         include_once Helper::get_file_dir() . '/includes/fields/vimeo.php';
+        include_once Helper::get_file_dir() . '/includes/fields/ec_category.php';
+        include_once Helper::get_file_dir() . '/includes/fields/ec_vanue.php';
     }
 
     public function atbdp_listing_type_form_fields($fields)
