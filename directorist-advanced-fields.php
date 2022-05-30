@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Plugin Name: Directorist - Advanced Fields
- * Plugin URI: #
+ * Plugin Name: Advanced Fields for Directorist
+ * Plugin URI: https://github.com/MahfuzulAlam/advanced-fields-for-directorist
  * Description: This is an extension for Directorist Plugin.
  * Version: 1.0.0
  * Author: M Alam
- * Author URI: #
+ * Author URI: https://github.com/MahfuzulAlam
  * License: GPLv2 or later
  * Text Domain: directorist-advanced-fields
  * Domain Path: /languages
@@ -66,7 +66,7 @@ if (!class_exists('Directorist_Advanced_Fields')) {
 
     /**
      * @return object|Directorist_Advanced_Fields
-     * @since 1.0
+     * @since 1.0.0
      */
     function Directorist_Advanced_Fields()
     {
