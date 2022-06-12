@@ -102,4 +102,26 @@ class Helper
 
         return $embeddable_url;
     }
+
+    public static function feature_get_label($options, $value)
+    {
+        $result = array_filter($options, function ($option) use ($value) {
+            return ($option['option_value'] == $value);
+        });
+        e_var_dump($result);
+        return $result && count($result) > 0 ? $result[0]['option_label'] : '';
+    }
+
+    public static function feature_option_list($options)
+    {
+        $new_options = array();
+        if ($options && count($options) > 0) {
+            foreach ($options as $option) {
+                $new_options[$option['option_value']]['class'] = isset($option['option_class']) && !empty($option['option_class']) ? $option['option_class'] : '';
+                $new_options[$option['option_value']]['icon'] = isset($option['option_icon']) && !empty($option['option_icon']) ? $option['option_icon'] : 'las la-check';
+                $new_options[$option['option_value']]['label'] = isset($option['option_label']) && !empty($option['option_label']) ? $option['option_label'] : '';
+            }
+        }
+        return $new_options;
+    }
 }
