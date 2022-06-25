@@ -13,3 +13,31 @@
 {
     width: 100%
 }
+
+.directorist-details-info-wrap .directorist-single-info__feature__list .directorist-single-info__value
+{
+    width: 100%
+}
+
+.directorist-details-info-wrap .directorist-single-info__feature__list .directorist-single-info__label
+{
+    margin-bottom: 10px;
+}
+
+.directorist-details-info-wrap .directorist-single-info__feature__list{
+    flex-direction: column;
+    align-items: flex-start !important;
+}
+
+.directorist-details-info-wrap .directorist-single-info__feature__list ul li
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-right: 5px;
+}
+
+.directorist-details-info-wrap .directorist-single-info__feature__list ul li span.icon
+{
+    margin-right: 5px;
+}

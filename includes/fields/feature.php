@@ -123,8 +123,18 @@ class Advanced_Fields_Feature
             'options' => [
                 'icon' => [
                     'type'  => 'icon',
-                    'label' => 'Icon',
+                    'label' => 'Widget Icon',
                     'value' => 'las la-list-alt',
+                ],
+                'feature_icon' => [
+                    'type'  => 'icon',
+                    'label' => 'Feature Icon',
+                    'value' => 'las la-check',
+                ],
+                'feature_color' => [
+                    'type'  => 'color',
+                    'label' => 'Feature Icon Color',
+                    'value' => '#000000',
                 ],
             ]
         ];

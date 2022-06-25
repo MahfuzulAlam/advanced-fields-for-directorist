@@ -118,7 +118,7 @@ class Helper
         if ($options && count($options) > 0) {
             foreach ($options as $option) {
                 $new_options[$option['option_value']]['class'] = isset($option['option_class']) && !empty($option['option_class']) ? $option['option_class'] : '';
-                $new_options[$option['option_value']]['icon'] = isset($option['option_icon']) && !empty($option['option_icon']) ? $option['option_icon'] : 'las la-check';
+                $new_options[$option['option_value']]['icon'] = isset($option['option_icon']) && !empty($option['option_icon']) ? $option['option_icon'] : '';
                 $new_options[$option['option_value']]['label'] = isset($option['option_label']) && !empty($option['option_label']) ? $option['option_label'] : '';
             }
         }

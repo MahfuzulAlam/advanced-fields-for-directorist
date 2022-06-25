@@ -16,9 +16,11 @@ $data['value'] = isset($data['value']) && !empty($data['value']) ? $data['value'
 
         <?php foreach ($data['options'] as $option) : ?>
 
+            <?php $option_class = isset($option['option_class']) && !empty($option['option_class']) ? $option['option_class'] : $option['option_value']; ?>
+
             <?php $uniqid = $option['option_value'] . '-' . wp_rand();  ?>
 
-            <div class="directorist-checkbox directorist-mb-10">
+            <div class="directorist-checkbox directorist-mb-10 feature-<?php echo trim($option_class); ?>">
                 <input type="checkbox" id="<?php echo esc_attr($uniqid); ?>" name="<?php echo esc_attr($data['field_key']); ?>[]" value="<?php echo esc_attr($option['option_value']); ?>" <?php echo in_array($option['option_value'], $data['value']) ? 'checked="checked"' : ''; ?>>
                 <label for="<?php echo esc_attr($uniqid); ?>" class="directorist-checkbox__label"><?php echo esc_html($option['option_label']); ?></label>
             </div>
