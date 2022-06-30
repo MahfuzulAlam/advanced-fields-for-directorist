@@ -124,4 +124,18 @@ class Helper
         }
         return $new_options;
     }
+
+    public static function display_repeater_field($field = array())
+    {
+        //ob_start();
+        switch ($field['field_type']) {
+            case 'text':
+                echo '<input type="text" class="repeater_text directorist-form-element" />';
+                break;
+            case 'textarea':
+                echo '<textarea class="repeater_textarea directorist-form-element"></textarea>';
+                break;
+        }
+        //return ob_get_clean();
+    }
 }

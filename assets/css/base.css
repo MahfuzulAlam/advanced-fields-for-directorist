@@ -41,3 +41,22 @@
 {
     margin-right: 5px;
 }
+
+/* Repeater Fields */
+
+.directorist-repeater-field-body
+{
+    padding: 15px;
+    border: 1px solid #eee;
+}
+
+.directorist-repeater-field-body .directorist-repeater-field
+{
+    margin-bottom: 10px;
+}
+
+.directorist-repeater-field-body .directorist-repeater-field-description
+{
+    font-size: 14px;
+    
+}
