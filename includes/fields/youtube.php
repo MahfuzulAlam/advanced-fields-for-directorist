@@ -88,7 +88,9 @@ class Advanced_Fields_Youtube
     public function directorist_single_item_template($template, $field_data)
     {
         if ('youtube-video' === $field_data['widget_name']) {
-            Helper::get_template_part('single/youtube', $field_data);
+            if (!empty($field_data['value'])) {
+                Helper::get_template_part('single/youtube', $field_data);
+            }
         }
         return $template;
     }
