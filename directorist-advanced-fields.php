@@ -75,7 +75,7 @@ if (!class_exists('Directorist_Advanced_Fields')) {
     }
 
     // Instantiate Directorist_Advanced_Fields, when Directorist plugin is active
-    if (in_array('directorist_git/directorist-base.php', (array) get_option('active_plugins'))) {
+    if (in_array('directorist/directorist-base.php', (array) get_option('active_plugins'))) {
         Directorist_Advanced_Fields();
     }
 }
