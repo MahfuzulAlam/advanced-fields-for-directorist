@@ -12,7 +12,7 @@ if( ! $data['value'] ) return;
 
 ?>
 
-<div class="directorist-single-info directorist-single-info-iframe <?php echo $data['form_data']['class']; ?>">
+<div class="directorist-single-info directorist-single-info-iframe  <?php echo esc_attr( $data['form_data']['class'] ); ?>">
 
     <div class="directorist-single-info__label">
         <span class="directorist-single-info__label-icon"><?php directorist_icon($data['icon']); ?></span>

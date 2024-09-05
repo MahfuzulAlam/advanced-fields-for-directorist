@@ -23,6 +23,7 @@ class Advanced_Fields
         include_once Helper::get_file_dir() . '/includes/fields/shortcode.php';
         include_once Helper::get_file_dir() . '/includes/fields/youtube.php';
         include_once Helper::get_file_dir() . '/includes/fields/vimeo.php';
+        include_once Helper::get_file_dir() . '/includes/fields/wp-editor.php';
         //include_once Helper::get_file_dir() . '/includes/fields/feature.php';
         //include_once Helper::get_file_dir() . '/includes/fields/repeater.php';
     }

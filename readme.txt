@@ -20,10 +20,12 @@ Advanced Fields
 - Shortcode
 - Youtube Video
 - Vimeo Video
+- WP Editor
 
 Coming Soon
 
 - Featured Checkboxs
+- Repeater Field
 
 In future we are going to introduce more interesting custom fields that will help your to make your form more dynamic and grow your business.
 
