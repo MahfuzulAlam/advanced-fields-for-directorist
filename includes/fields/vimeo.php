@@ -29,13 +29,19 @@ class Advanced_Fields_Vimeo
                     'type'  => 'hidden',
                     'value' => 'text',
                 ],
-                'field_key' => [
-                    'type'   => 'hidden',
-                    'value'  => 'yturl',
+                'field_key' => apply_filters('directorist_custom_field_meta_key_field_args', [
+                    'type'  => 'hidden',
+                    'label' => __('Key', 'directorist'),
+                    'value' => 'custom-vimeo',
                     'rules' => [
                         'unique' => true,
                         'required' => true,
                     ]
+                ]),
+                'class' => [
+                    'type'  => 'text',
+                    'label' => __('Class', 'directorist'),
+                    'value' => 'directorist-field-shortcode',
                 ],
                 'label' => [
                     'type'  => 'text',
@@ -45,7 +51,7 @@ class Advanced_Fields_Vimeo
                 'placeholder' => [
                     'type'  => 'text',
                     'label' => __('Placeholder', 'directorist'),
-                    'value' => 'Only YouTube URLs.',
+                    'value' => 'Only Vimeo URLs.',
                 ],
                 'required' => [
                     'type'  => 'toggle',

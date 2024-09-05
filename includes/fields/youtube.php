@@ -29,13 +29,19 @@ class Advanced_Fields_Youtube
                     'type'  => 'hidden',
                     'value' => 'text',
                 ],
-                'field_key' => [
-                    'type'   => 'hidden',
-                    'value'  => 'yturl',
+                'field_key' => apply_filters('directorist_custom_field_meta_key_field_args', [
+                    'type'  => 'hidden',
+                    'label' => __('Key', 'directorist'),
+                    'value' => 'custom-youtube',
                     'rules' => [
                         'unique' => true,
                         'required' => true,
                     ]
+                ]),
+                'class' => [
+                    'type'  => 'text',
+                    'label' => __('Class', 'directorist'),
+                    'value' => 'directorist-field-youtube',
                 ],
                 'label' => [
                     'type'  => 'text',
