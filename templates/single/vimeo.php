@@ -8,6 +8,8 @@
 
 if (!defined('ABSPATH')) exit;
 
+if( ! $data['value'] ) return;
+
 use Directorist_Advanced_Fields\Helper;
 
 ?>

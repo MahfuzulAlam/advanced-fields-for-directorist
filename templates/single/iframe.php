@@ -6,6 +6,10 @@
  * @version 1.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if( ! $data['value'] ) return;
+
 ?>
 
 <div class="directorist-single-info directorist-single-info-iframe <?php echo $data['form_data']['class']; ?>">
