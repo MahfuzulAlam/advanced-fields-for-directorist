@@ -17,25 +17,28 @@ class Daf_Hooks
     }
 
     public function sanitize_text_field( $filtered, $str ){
-        if ( preg_match( '/<iframe\b[^>]*>(.*?)<\/iframe>/i', $str ) ) {
-            $allowed_tags = array(
-                'iframe' => array(
-                    'title'             => array(),
-                    'src'             	=> array(),
-                    'width'           	=> array(),
-                    'height'          	=> array(),
-                    'frameborder'     	=> array(),
-                    'allowfullscreen' 	=> array(),
-                    'referrerpolicy'	=> array(),
-                    'allow'				=> array(),
-                ),
-            );
-            return wp_kses( $str, $allowed_tags);
-        }
 
-        if( $this->has_only_allowed_elements( $str ) ) {
-            return wp_kses_post( $str );
-        }
+        if( directorist_get_page_id( 'form' ) ):
+            if ( preg_match( '/<iframe\b[^>]*>(.*?)<\/iframe>/i', $str ) ) {
+                $allowed_tags = array(
+                    'iframe' => array(
+                        'title'             => array(),
+                        'src'             	=> array(),
+                        'width'           	=> array(),
+                        'height'          	=> array(),
+                        'frameborder'     	=> array(),
+                        'allowfullscreen' 	=> array(),
+                        'referrerpolicy'	=> array(),
+                        'allow'				=> array(),
+                    ),
+                );
+                return wp_kses( $str, $allowed_tags);
+            }
+
+            if( $this->contains_html( $str ) ) {
+                return wp_kses_post( $str );
+            }
+        endif;
 
         return $filtered;
     }
@@ -50,6 +53,14 @@ class Daf_Hooks
     
         // Check if the value contains only allowed elements
         return preg_match($pattern, $value);
+    }
+
+    public function contains_html( $string ) {
+        // Regular expression to detect HTML tags
+        $pattern = '/<[^<]+>/';
+    
+        // Use preg_match to check if the string contains HTML tags
+        return preg_match($pattern, $string) === 1;
     }
 }
 
