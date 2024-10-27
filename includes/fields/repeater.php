@@ -170,20 +170,18 @@ class Advanced_Fields_Repeater
                     'value' => false,
                 ],
                 'assign_to' => [
-                    'type' => 'radio',
-                    'label' => __('Assign to', 'directorist'),
-                    'value' => 'form',
-                    'options' => [
-                        [
-                            'label' => __('Form', 'directorist'),
-                            'value' => 'form',
-                        ],
-                        [
-                            'label' => __('Category', 'directorist'),
-                            'value' => 'category',
+                    'type'  => 'toggle',
+                    'label' => __('Assign to Category', 'directorist'),
+                    'value' => false,
+                ],
+                'category'  => get_category_select_field([
+                    'show_if' => [
+                        'where'      => "self.assign_to",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
                     ],
-                ]
+                ]),
             ]
 
         );

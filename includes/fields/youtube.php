@@ -63,6 +63,19 @@ class Advanced_Fields_Youtube
                     'label'  => __('Only For Admin Use', 'directorist'),
                     'value' => false,
                 ],
+                'assign_to' => [
+                    'type'  => 'toggle',
+                    'label' => __('Assign to Category', 'directorist'),
+                    'value' => false,
+                ],
+                'category'  => get_category_select_field([
+                    'show_if' => [
+                        'where'      => "self.assign_to",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ]),
             ],
         );
         return $widgets;
