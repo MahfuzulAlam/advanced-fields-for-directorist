@@ -19,7 +19,7 @@ class Daf_Hooks
     public function sanitize_text_field( $filtered, $str ){
 
         if( directorist_get_page_id( 'form' ) ):
-            if ( ! is_array( $str ) && preg_match( '/<iframe\b[^>]*>(.*?)<\/iframe>/i', $str ) ) {
+            if ( preg_match( '/<iframe\b[^>]*>(.*?)<\/iframe>/i', $str ) ) {
                 $allowed_tags = array(
                     'iframe' => array(
                         'title'             => array(),
@@ -52,7 +52,7 @@ class Daf_Hooks
         $pattern = '~^([^<]*<(?:' . $allowed_tags . ')(?:\s+[^>]*>|>)[^<]*</(?:' . $allowed_tags . ')>[^<]*)*$~is';
     
         // Check if the value contains only allowed elements
-        return preg_match($pattern, $value);
+        return ! is_array( $value ) ? preg_match($pattern, $value) : false;
     }
 
     public function contains_html( $string ) {
@@ -60,7 +60,7 @@ class Daf_Hooks
         $pattern = '/<[^<]+>/';
     
         // Use preg_match to check if the string contains HTML tags
-        return preg_match($pattern, $string) === 1;
+        return ! is_array( $string ) ? preg_match($pattern, $string) === 1 : false;
     }
 }
 
