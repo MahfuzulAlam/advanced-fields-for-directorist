@@ -18,8 +18,8 @@ class Daf_Hooks
 
     public function sanitize_text_field( $filtered, $str ){
 
-        if( directorist_get_page_id( 'form' ) ):
-            if ( preg_match( '/<iframe\b[^>]*>(.*?)<\/iframe>/i', $str ) ) {
+        if( function_exists( 'directorist_get_page_id' ) && directorist_get_page_id( 'form' ) ):
+            if ( ! is_array( $str ) && preg_match( '/<iframe\b[^>]*>(.*?)<\/iframe>/i', $str ) ) {
                 $allowed_tags = array(
                     'iframe' => array(
                         'title'             => array(),
