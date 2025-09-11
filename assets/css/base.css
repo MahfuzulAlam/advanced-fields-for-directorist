@@ -75,3 +75,103 @@
     font-size: 14px;
     
 }
+
+/* Multiple Address Fields */
+
+.directorist-form-multi-address-field {
+    background: #f9fafb;
+    padding: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.directorist-form-multi-address-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #374151;
+}
+
+.directorist-form-multi-address-field .address_field_holder {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.directorist-form-multi-address-field .address_item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+.directorist-form-multi-address-field .address_item input[type="text"] {
+    flex: 1;
+    min-width: 250px;
+    padding: 8px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.directorist-form-multi-address-field .remove_address_btn {
+    background-color: #ef4444;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.directorist-form-multi-address-field .remove_address_btn:hover {
+    background-color: #dc2626;
+}
+
+.directorist-form-multi-address-field .add_address_btn {
+    margin-top: 12px;
+    background-color: #3b82f6;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.directorist-form-multi-address-field .add_address_btn:hover {
+    background-color: #2563eb;
+}
+
+.directorist-single-info-address .directorist-single-info__addresses{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.directorist-single-info__addresses .address-item
+{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.directorist-single-info__addresses .address-item .address-label
+{
+    font-weight: 600;
+    color: #374151;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.directorist-single-info__addresses .address-item .address-link
+{
+    font-size: 14px;
+    color: #374151;
+    text-decoration: none;
+}

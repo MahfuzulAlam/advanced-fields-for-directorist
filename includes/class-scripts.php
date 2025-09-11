@@ -14,6 +14,7 @@ class DAF_Scripts
     public function __construct()
     {
         add_action('wp_enqueue_scripts', array($this, 'daf_enqueue_scripts'), 999999);
+        add_action('admin_enqueue_scripts', array($this, 'daf_enqueue_scripts'));
 
         //add_action('wp_footer', array($this, 'address_autocomplete'), 99);
     }
