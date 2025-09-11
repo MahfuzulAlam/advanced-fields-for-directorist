@@ -15,6 +15,8 @@ class Advanced_Fields
     {
         add_filter('atbdp_listing_type_form_fields', array($this, 'atbdp_listing_type_form_fields'));
         $this->advanced_fields();
+
+        add_shortcode('atbdp_qrcode', array($this, 'atbdp_qrcode'));
     }
 
     public function advanced_fields()
@@ -40,6 +42,21 @@ class Advanced_Fields
             );
         }
         return $fields;
+    }
+
+    public function atbdp_qrcode($atts)
+    {
+        $atts = shortcode_atts(array(
+            'text' => '',
+            'size' => 200,
+            'level' => 'L',
+        ), $atts, 'atbdp_qrcode');
+
+        ob_start();
+        ?>
+        <div id="qrcode" text="<?php echo get_the_permalink(); ?>"></div>
+        <?php
+        return ob_get_clean();
     }
 }
 
