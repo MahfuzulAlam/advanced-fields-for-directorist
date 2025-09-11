@@ -32,6 +32,31 @@ class DAF_Scripts
         );
 
         wp_enqueue_script('daf-address');
+
+        // Enqueue addresses map scripts for single listing pages
+        if (is_singular('at_biz_dir')) {
+            $map_type = get_directorist_option('select_listing_map');
+            
+            if ($map_type === 'openstreet') {
+                wp_register_script(
+                    'daf-openstreet-map',
+                    helper::get_file_uri('assets/js/openstreet-map.js'),
+                    array('jquery'),
+                    '1.0.0',
+                    true
+                );
+                wp_enqueue_script('daf-openstreet-map');
+            } elseif ($map_type === 'google') {
+                wp_register_script(
+                    'daf-google-map',
+                    helper::get_file_uri('assets/js/google-map.js'),
+                    array('jquery', 'google-map-api'),
+                    '1.0.0',
+                    true
+                );
+                wp_enqueue_script('daf-google-map');
+            }
+        }
     }
 
     public function address_autocomplete()

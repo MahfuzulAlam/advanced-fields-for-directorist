@@ -57,9 +57,14 @@ class Advanced_Fields_Address_List
                         'label' => __('Limit', 'directorist-advanced-fields'),
                         'description' => __('Set a limit on the address list field. 0 or empty means unlimited addresses', 'directorist-advanced-fields'),
                     ],
-                     'is_label' => [
+                    'is_label' => [
                         'type'  => 'toggle',
                         'label' => __('Allow Label', 'directorist-advanced-fields'),
+                        'value' => false,
+                    ],
+                    'is_map' => [
+                        'type'  => 'toggle',
+                        'label' => __('Allow Map', 'directorist-advanced-fields'),
                         'value' => false,
                     ],
                     'only_for_admin' => [
