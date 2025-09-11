@@ -9,6 +9,7 @@ Advanced fields for direcrorist plugin will help you to use some advanced custom
 - Youtube Video
 - Vimeo Video
 - WP Editor
+- Multiple Addresses
 
 ### Coming Soon
 
