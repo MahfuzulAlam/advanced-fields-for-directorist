@@ -87,6 +87,24 @@ class Advanced_Fields_Address_List
                     'label' => 'Icon',
                     'value' => 'la la-map',
                 ],
+                'display' => [
+                    'type' => 'radio',
+                    'label' => 'Display',
+                    'options' => [
+                        [
+                            'label' => 'Label',
+                            'value' => 'label',
+                        ],
+                        [
+                            'label' => 'Address',
+                            'value' => 'address',
+                        ],
+                        [
+                            'label' => 'Both',
+                            'value' => 'both',
+                        ]
+                    ]
+                ],
             ]
         ];
         return $widgets;
