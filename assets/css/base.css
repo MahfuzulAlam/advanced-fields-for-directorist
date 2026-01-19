@@ -75,3 +75,47 @@
     font-size: 14px;
     
 }
+
+/* Featured Checkbox List Styles */
+.directorist-details-info-wrap .directorist-single-info-featured-checkbox .directorist-single-info__label
+{
+    margin-bottom: 10px;
+}
+
+.directorist-details-info-wrap .directorist-single-info-featured-checkbox .directorist-single-info__value
+{
+    width: 100%;
+}
+
+.directorist-featured-checkbox-list
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.directorist-featured-checkbox-item
+{
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    color: #333;
+    line-height: 1.6;
+    flex: 0 0 45% !important;
+}
+
+.directorist-featured-checkbox-item:before
+{
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #999;
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: bold;
+}
+
+.directorist-featured-checkbox-item:last-child
+{
+    margin-bottom: 0;
+}
