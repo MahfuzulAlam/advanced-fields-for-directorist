@@ -6,14 +6,15 @@
  * @version 1.0
  */
 
+if (!defined('ABSPATH')) exit;
 ?>
 
-<div class="directorist-form-group directorist-custom-field-text <?php echo esc_attr($data['class']) ?>">
+<div class="directorist-form-group directorist-custom-field-text <?php echo esc_attr($data['class']) ?>" <?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
-    <?php \Directorist\Directorist_Listing_Form::instance()->field_label_template($data); ?>
+    <?php $listing_form->field_label_template($data); ?>
 
     <input type="text" name="<?php echo esc_attr($data['field_key']); ?>" id="<?php echo esc_attr($data['field_key']); ?>" class="directorist-form-element" value="<?php echo esc_attr($data['value']); ?>" placeholder="<?php echo esc_attr($data['placeholder']); ?>" <?php Directorist\Directorist_Listing_Form::instance()->required($data); ?> />
 
-    <?php \Directorist\Directorist_Listing_Form::instance()->field_description_template($data); ?>
+    <?php $listing_form->field_description_template($data); ?>
 
 </div>
