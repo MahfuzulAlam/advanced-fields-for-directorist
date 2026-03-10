@@ -27,7 +27,7 @@ $widget_label = isset($data['label']) ? $data['label'] : '';
 
 <div class="directorist-single-info directorist-single-info-featured-checkbox directorist-single-info__list">
 
-    <?php if ($widget_label) : ?>
+    <?php if ($widget_label && (isset($data['label_enabled']) && $data['label_enabled'] === true)) : ?>
         <div class="directorist-single-info__label">
             <span class="directorist-single-info__label-icon"><?php directorist_icon($data['icon']); ?></span>
             <span class="directorist-single-info__label--text"><?php echo esc_html($widget_label); ?></span>
@@ -39,7 +39,9 @@ $widget_label = isset($data['label']) ? $data['label'] : '';
             <?php foreach ($values as $value) : 
                 $label = isset($option_map[$value]) ? $option_map[$value] : $value;
             ?>
-                <li class="directorist-featured-checkbox-item"><?php echo esc_html($label); ?></li>
+                <li class="directorist-featured-checkbox-item"><i class="las la-check-circle"></i>
+                    <span class="directorist-featured-checkbox-item-label"><?php echo esc_html($label); ?></span>
+                </li>
             <?php endforeach; ?>
         </ul>
     </div>

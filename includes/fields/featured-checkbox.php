@@ -8,6 +8,8 @@
 
 namespace Directorist_Advanced_Fields;
 
+use Directorist_Advanced_Fields\Helper;
+
 class Advanced_Fields_Featured_Checkbox
 {
 
@@ -85,19 +87,7 @@ class Advanced_Fields_Featured_Checkbox
                     'label'  => __('Only For Admin Use', 'directorist'),
                     'value' => false,
                 ],
-                'assign_to' => [
-                    'type'  => 'toggle',
-                    'label' => __('Assign to Category', 'directorist'),
-                    'value' => false,
-                ],
-                'category'  => get_category_select_field([
-                    'show_if' => [
-                        'where'      => "self.assign_to",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ]),
+                'conditional_logic' => Helper::get_conditional_logic_field(),
             ]
 
         );
@@ -113,7 +103,12 @@ class Advanced_Fields_Featured_Checkbox
                     'label' => 'Icon',
                     'value' => 'las la-check-square',
                 ],
-            ]
+                'label_enabled' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Label', 'directorist'),
+                    'value' => true,
+                ],
+            ],
         ];
         return $widgets;
     }
