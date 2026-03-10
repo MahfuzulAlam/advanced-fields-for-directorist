@@ -10,11 +10,11 @@ if (!defined('ABSPATH')) exit;
 
 use Directorist_Advanced_Fields\Helper;
 
-//e_var_dump($data);
+$conditional_logic_attr = \Directorist\Directorist_Listing_Form::instance()->get_conditional_logic_attributes( $data );
 
 ?>
 
-<div class="atbd_content_module directorist-repeater">
+<div class="atbd_content_module directorist-repeater" <?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
     <div class="directorist-form-group directorist-form-repeater-group">
         <div>

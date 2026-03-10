@@ -8,8 +8,6 @@
 
 if (!defined('ABSPATH')) exit;
 
-e_var_dump($data);
-
 ?>
 
 <div class="directorist-single-info directorist-single-info-text">

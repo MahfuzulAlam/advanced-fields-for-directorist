@@ -9,9 +9,9 @@
 if (!defined('ABSPATH')) exit;
 ?>
 
-<div class="directorist-form-group directorist-form-video-field directorist-form-wp-editor-field <?php echo esc_attr( $data[ 'class' ] ); ?>">
+<div class="directorist-form-group directorist-form-video-field directorist-form-wp-editor-field <?php echo esc_attr( $data[ 'class' ] ); ?>" <?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
-    <?php \Directorist\Directorist_Listing_Form::instance()->field_label_template( $data ); ?>
+    <?php $listing_form->field_label_template( $data ); ?>
 
     <?php
         wp_editor(
@@ -28,6 +28,6 @@ if (!defined('ABSPATH')) exit;
 		);
     ?>
 
-    <?php \Directorist\Directorist_Listing_Form::instance()->field_description_template( $data ); ?>
+    <?php $listing_form->field_description_template( $data ); ?>
 
 </div>
