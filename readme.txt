@@ -4,7 +4,7 @@ Donate link: https://www.wpoutfield.com/
 Tags: directorist, field
 Requires at least: 4
 Tested up to: 6
-Stable tag: 1.0.0
+Stable tag: 2.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -38,6 +38,10 @@ Enjoy
 1. Once the plugin is activated you will find advance field on directorist form builder.
 
 == Changelog ==
+
+= 2.1.0 =
+
+* Updated plugin version to 2.1.0.
 
 = 0.1.0 =
 

@@ -3,7 +3,7 @@
 /**
  * @author  mahfuz
  * @since   1.0
- * @version 1.0
+ * @version 2.1.0
  */
 
 namespace Directorist_Advanced_Fields;
@@ -25,7 +25,11 @@ class DAF_Scripts
 			return (string) filemtime( $full_path );
 		}
 
-		return '1.0.0';
+		if ( defined( 'DIRECTORIST_ADVANCED_FIELDS_VERSION' ) ) {
+			return DIRECTORIST_ADVANCED_FIELDS_VERSION;
+		}
+
+		return '2.1.0';
 	}
 
 	private function localize_repeater_script()

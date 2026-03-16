@@ -4,7 +4,7 @@
  * Plugin Name: Advanced Fields for Directorist
  * Plugin URI: https://github.com/MahfuzulAlam/advanced-fields-for-directorist
  * Description: This is an extension for Directorist Plugin.
- * Version: 2.0.0
+ * Version: 2.1.0
  * Author: M Alam
  * Author URI: https://github.com/MahfuzulAlam
  * License: GPLv2 or later
@@ -14,6 +14,10 @@
 
 // prevent direct access to the file
 defined('ABSPATH') || die('No direct script access allowed!');
+
+if ( ! defined( 'DIRECTORIST_ADVANCED_FIELDS_VERSION' ) ) {
+    define( 'DIRECTORIST_ADVANCED_FIELDS_VERSION', '2.1.0' );
+}
 
 if (!class_exists('Directorist_Advanced_Fields')) {
 
