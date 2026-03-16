@@ -125,17 +125,106 @@ class Helper
         return $new_options;
     }
 
-    public static function display_repeater_field($field = array())
+    public static function display_repeater_field($field = array(), $value = '', $parent_key = '', $index = 0)
     {
-        //ob_start();
-        switch ($field['field_type']) {
+        $field_key = isset($field['field_key']) ? $field['field_key'] : '';
+        $field_type = isset($field['field_type']) ? $field['field_type'] : 'text';
+        $field_placeholder = isset($field['field_placeholder']) ? $field['field_placeholder'] : '';
+        $field_class = isset($field['field_class']) ? $field['field_class'] : '';
+        $field_options = isset($field['field_options']) ? $field['field_options'] : array();
+        
+        // Generate field name
+        $field_name = $parent_key . '[' . $index . '][' . $field_key . ']';
+        $field_id = $field_key . '_' . $index;
+        
+        // Add field class
+        $classes = 'directorist-form-element';
+        if ($field_class) {
+            $classes .= ' ' . $field_class;
+        }
+        
+        switch ($field_type) {
             case 'text':
-                echo '<input type="text" class="repeater_text directorist-form-element" />';
+                echo '<input type="text" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
                 break;
+                
             case 'textarea':
-                echo '<textarea class="repeater_textarea directorist-form-element"></textarea>';
+                echo '<textarea name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" placeholder="' . esc_attr($field_placeholder) . '">' . esc_textarea($value) . '</textarea>';
+                break;
+                
+            case 'email':
+                echo '<input type="email" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
+                break;
+                
+            case 'number':
+                echo '<input type="number" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
+                break;
+                
+            case 'date':
+                echo '<input type="date" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
+                break;
+                
+            case 'time':
+                echo '<input type="time" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
+                break;
+                
+            case 'color':
+                echo '<input type="color" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" />';
+                break;
+                
+            case 'url':
+                echo '<input type="url" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
+                break;
+                
+            case 'select':
+                echo '<select name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" data-options=\'' . json_encode($field_options) . '\'>';
+                echo '<option value="">' . esc_html($field_placeholder) . '</option>';
+                if (!empty($field_options) && is_array($field_options)) {
+                    foreach ($field_options as $option) {
+                        $option_value = isset($option['option_value']) ? $option['option_value'] : '';
+                        $option_label = isset($option['option_label']) ? $option['option_label'] : $option_value;
+                        $selected = ($value == $option_value) ? ' selected="selected"' : '';
+                        echo '<option value="' . esc_attr($option_value) . '"' . $selected . '>' . esc_html($option_label) . '</option>';
+                    }
+                }
+                echo '</select>';
+                break;
+                
+            case 'radio':
+                if (!empty($field_options) && is_array($field_options)) {
+                    echo '<div class="radio-group">';
+                    foreach ($field_options as $option) {
+                        $option_value = isset($option['option_value']) ? $option['option_value'] : '';
+                        $option_label = isset($option['option_label']) ? $option['option_label'] : $option_value;
+                        $checked = ($value == $option_value) ? ' checked="checked"' : '';
+                        echo '<div class="radio-item">';
+                        echo '<input type="radio" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id . '_' . $option_value) . '" value="' . esc_attr($option_value) . '"' . $checked . ' />';
+                        echo '<label for="' . esc_attr($field_id . '_' . $option_value) . '">' . esc_html($option_label) . '</label>';
+                        echo '</div>';
+                    }
+                    echo '</div>';
+                }
+                break;
+                
+            case 'checkbox':
+                if (!empty($field_options) && is_array($field_options)) {
+                    echo '<div class="checkbox-group">';
+                    foreach ($field_options as $option) {
+                        $option_value = isset($option['option_value']) ? $option['option_value'] : '';
+                        $option_label = isset($option['option_label']) ? $option['option_label'] : $option_value;
+                        $checked = (is_array($value) && in_array($option_value, $value)) ? ' checked="checked"' : '';
+                        echo '<div class="checkbox-item">';
+                        echo '<input type="checkbox" name="' . esc_attr($field_name) . '[]" id="' . esc_attr($field_id . '_' . $option_value) . '" value="' . esc_attr($option_value) . '"' . $checked . ' />';
+                        echo '<label for="' . esc_attr($field_id . '_' . $option_value) . '">' . esc_html($option_label) . '</label>';
+                        echo '</div>';
+                    }
+                    echo '</div>';
+                }
+                break;
+                
+            default:
+                echo '<input type="text" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
                 break;
         }
-        //return ob_get_clean();
     }
 }

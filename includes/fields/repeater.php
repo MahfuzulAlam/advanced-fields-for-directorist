@@ -42,7 +42,7 @@ class Advanced_Fields_Repeater
                     'rules' => [
                         'unique' => true,
                         'required' => true,
-                    ]
+                    ],
                 ]),
                 'options' => [
                     'type' => 'multi-fields',
@@ -100,10 +100,19 @@ class Advanced_Fields_Repeater
                                 ],
                             ],
                         ],
+                        'field_key' => [
+                            'type'  => 'text',
+                            'label' => 'field_key',
+                            'value' => 'repeater_field_key',
+                            'rules' => [
+                                'unique' => true,
+                                'required' => true,
+                            ],
+                        ],
                         'field_label' => [
                             'type'  => 'text',
                             'label' => 'Field Label',
-                            'value' => 'text',
+                            'value' => 'Label',
                         ],
                         'field_placeholder' => [
                             'type'  => 'text',
@@ -152,7 +161,7 @@ class Advanced_Fields_Repeater
                 'class' => [
                     'type'  => 'text',
                     'label' => __('Class', 'directorist'),
-                    'value' => 'directorist-field-feature',
+                    'value' => 'directorist-field-repeater',
                 ],
                 'description' => [
                     'type'  => 'text',
