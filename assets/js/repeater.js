@@ -1,300 +1,334 @@
 /**
  * Repeater Field JavaScript
- * Handles add/remove functionality for repeater fields
+ * Keeps repeater rows and hidden JSON input in sync.
  */
 
-(function($) {
-    'use strict';
+( function( $ ) {
+	'use strict';
 
-    $(document).ready(function() {
-        initRepeaterFields();
-    });
+	$( document ).ready( function() {
+		init_repeater_fields( document );
+		bind_repeater_events();
+		observe_repeater_fields();
+	} );
 
-    function initRepeaterFields() {
-        $('.directorist-repeater').each(function() {
-            var $repeater = $(this);
-            var $container = $repeater.find('.directorist-repeater-field-body');
-            var $template = $container.find('.repeater-fieldset').first();
-            var fieldKey = $repeater.find('input[name]').attr('name');
-            var fieldLabel = $repeater.find('.fieldset-title').data('label');
-            var fieldOptions = window.repeaterFieldOptions || {};
+	function bind_repeater_events() {
+		// Avoid duplicate handlers if this script is loaded multiple times.
+		$( document ).off( '.dafRepeater' );
 
-            console.log(fieldLabel);
-            
-            // Store the template for cloning
-            //$template.addClass('repeater-template').hide();
-            
-            // Initialize existing items
-            $container.find('.repeater-fieldset:not(.repeater-template)').each(function(index) {
-                initRepeaterItem($(this), index, fieldKey, fieldOptions);
-            });
-            
-            // Add click handlers for add/remove buttons
-            $repeater.on('click', '.action-plus', function(e) {
-                e.preventDefault();
-                addRepeaterItem($container, $template, fieldKey, fieldOptions, fieldLabel);
-                updateRepeaterHiddenInput($repeater);
-            });
-            
-            $repeater.on('click', '.action-minus', function(e) {
-                e.preventDefault();
-                removeRepeaterItem($(this));
-                updateRepeaterHiddenInput($repeater);
-            });
-            
-            // Listen for changes on any field within the repeater
-            $repeater.on('change input', 'input, select, textarea', function() {
-                updateRepeaterHiddenInput($repeater);
-            });
-            
-            // Initial update of hidden input
-            updateRepeaterHiddenInput($repeater);
-        });
-    }
+		$( document ).on( 'click.dafRepeater', '.directorist-repeater .action-plus', function( e ) {
+			e.preventDefault();
+			add_repeater_item( $( this ).closest( '.directorist-repeater' ) );
+		} );
 
-    function addRepeaterItem($container, $template, fieldKey, fieldOptions, fieldLabel) {
-        var $newItem = $template.clone();
-        var newIndex = $container.find('.repeater-fieldset:not(.repeater-template)').length;
-        
-        $newItem.removeClass('repeater-template').show();
-        $newItem.attr('data-id', newIndex + 1);
-        
-        // Update field names and IDs
-        $newItem.find('input, select, textarea').each(function() {
-            var $field = $(this);
-            var name = $field.attr('name');
-            var id = $field.attr('id');
-            
-            if (name) {
-                $field.attr('name', fieldKey + '[' + newIndex + '][' + name + ']');
-            }
-            if (id) {
-                $field.attr('id', id + '_' + newIndex);
-            }
-        });
+		$( document ).on( 'click.dafRepeater', '.directorist-repeater .action-minus', function( e ) {
+			e.preventDefault();
+			remove_repeater_item( $( this ).closest( '.directorist-repeater' ), $( this ) );
+		} );
 
-        $newItem.find('.fieldset-title').text(fieldLabel + ' #' + (newIndex + 1));
-        
-        // Initialize the new item
-        initRepeaterItem($newItem, newIndex, fieldKey, fieldOptions);
-        
-        // Add to container
-        $container.append($newItem);
-        
-        // Trigger change event
-        $newItem.trigger('repeater:item:added');
-        
-        // Update hidden input after adding item
-        var $repeater = $container.closest('.directorist-repeater');
-        updateRepeaterHiddenInput($repeater);
-    }
+		$( document ).on( 'change.dafRepeater input.dafRepeater', '.directorist-repeater input, .directorist-repeater select, .directorist-repeater textarea', function() {
+			update_repeater_hidden_input( $( this ).closest( '.directorist-repeater' ) );
+		} );
+	}
 
-    function removeRepeaterItem($button) {
-        var $item = $button.closest('.repeater-fieldset');
-        var $container = $item.closest('.directorist-repeater-field-body');
-        var $repeater = $container.closest('.directorist-repeater');
-        
-        // Don't remove if it's the last item
-        if ($container.find('.repeater-fieldset:not(.repeater-template)').length <= 1) {
-            return;
-        }
-        
-        $item.fadeOut(300, function() {
-            $(this).remove();
-            reindexRepeaterItems($container);
-            updateRepeaterHiddenInput($repeater);
-        });
-    }
+	function observe_repeater_fields() {
+		if ( ! window.MutationObserver || ! document.body ) {
+			return;
+		}
 
-    function reindexRepeaterItems($container) {
-        $container.find('.repeater-fieldset:not(.repeater-template)').each(function(index) {
-            var $item = $(this);
-            $item.attr('data-id', index + 1);
-            
-            // Update field names and IDs
-            $item.find('input, select, textarea').each(function() {
-                var $field = $(this);
-                var name = $field.attr('name');
-                var id = $field.attr('id');
-                
-                if (name && name.includes('[')) {
-                    var baseName = name.split('[')[0];
-                    var fieldName = name.split('[')[2] ? name.split('[')[2].replace(']', '') : '';
-                    $field.attr('name', baseName + '[' + index + '][' + fieldName + ']');
-                }
-                if (id && id.includes('_')) {
-                    var baseId = id.split('_')[0];
-                    $field.attr('id', baseId + '_' + index);
-                }
-            });
-        });
-    }
+		var observer = new MutationObserver( function( mutations ) {
+			mutations.forEach( function( mutation ) {
+				if ( ! mutation.addedNodes || ! mutation.addedNodes.length ) {
+					return;
+				}
 
-    function initRepeaterItem($item, index, fieldKey, fieldOptions) {
-        // Initialize any special field types
-        $item.find('.directorist-form-element').each(function() {
-            var $field = $(this);
-            var fieldType = $field.data('field-type') || $field.attr('type');
-            
-            // Handle different field types
-            switch(fieldType) {
-                case 'date':
-                    if ($.fn.datepicker) {
-                        $field.datepicker({
-                            dateFormat: 'yy-mm-dd',
-                            changeMonth: true,
-                            changeYear: true,
-                            onSelect: function() {
-                                var $repeater = $field.closest('.directorist-repeater');
-                                updateRepeaterHiddenInput($repeater);
-                            }
-                        });
-                    }
-                    break;
-                case 'time':
-                    if ($.fn.timepicker) {
-                        $field.timepicker({
-                            timeFormat: 'HH:mm',
-                            interval: 15,
-                            minTime: '00:00',
-                            maxTime: '23:59',
-                            defaultTime: false,
-                            startTime: '00:00',
-                            dynamic: false,
-                            dropdown: true,
-                            scrollbar: true,
-                            change: function() {
-                                var $repeater = $field.closest('.directorist-repeater');
-                                updateRepeaterHiddenInput($repeater);
-                            }
-                        });
-                    }
-                    break;
-                case 'color':
-                    if ($.fn.colorpicker) {
-                        $field.colorpicker({
-                            change: function() {
-                                var $repeater = $field.closest('.directorist-repeater');
-                                updateRepeaterHiddenInput($repeater);
-                            }
-                        });
-                    }
-                    break;
-            }
-        });
-        
-        // Handle select fields with options
-        $item.find('select').each(function() {
-            var $select = $(this);
-            var options = $select.data('options');
-            
-            if (options && Array.isArray(options)) {
-                $select.empty();
-                $select.append('<option value="">' + $select.attr('placeholder') + '</option>');
-                
-                options.forEach(function(option) {
-                    $select.append('<option value="' + option.option_value + '">' + option.option_label + '</option>');
-                });
-            }
-        });
-    }
+				mutation.addedNodes.forEach( function( node ) {
+					if ( ! node || 1 !== node.nodeType ) {
+						return;
+					}
 
-    function updateRepeaterHiddenInput($repeater) {
-        var $hiddenInput = $repeater.find('.directorist-repeater-hidden-input');
-        if ($hiddenInput.length === 0) {
-            return;
-        }
-        
-        var $container = $repeater.find('.directorist-repeater-field-body');
-        var fieldData = [];
-        
-        // Collect data from all repeater fieldsets
-        $container.find('.repeater-fieldset:not(.repeater-template)').each(function() {
-            var $fieldset = $(this);
-            var itemData = {};
-            var processedFields = {};
-            
-            // Get all input fields in this fieldset
-            $fieldset.find('input, select, textarea').each(function() {
-                var $field = $(this);
-                var name = $field.attr('name');
-                
-                // Skip the hidden input itself
-                if ($field.hasClass('directorist-repeater-hidden-input')) {
-                    return;
-                }
-                
-                // Skip if already processed (for radio/checkbox groups)
-                if (processedFields[name]) {
-                    return;
-                }
-                
-                // Parse the field name to extract the field key
-                // Format: fieldKey[index][field_key] or fieldKey[index][field_key][]
-                if (name && name.includes('[')) {
-                    var matches = name.match(/\[(\d+)\]\[([^\]]+)\](\[\])?/);
-                    if (matches && matches.length >= 3) {
-                        var fieldKey = matches[2];
-                        var isArrayField = matches[3] === '[]';
-                        var fieldType = $field.attr('type');
-                        
-                        // Mark as processed
-                        processedFields[name] = true;
-                        
-                        // Handle different field types
-                        if (fieldType === 'checkbox' && isArrayField) {
-                            // Checkbox group - collect all checked values
-                            var checkedValues = [];
-                            $fieldset.find('input[type="checkbox"][name="' + name + '"]:checked').each(function() {
-                                checkedValues.push($(this).val());
-                            });
-                            itemData[fieldKey] = checkedValues;
-                        } else if (fieldType === 'radio') {
-                            // Radio group - get the checked value
-                            var $checkedRadio = $fieldset.find('input[type="radio"][name="' + name + '"]:checked');
-                            itemData[fieldKey] = $checkedRadio.length > 0 ? $checkedRadio.val() : '';
-                        } else if ($field.is('select[multiple]')) {
-                            // Multi-select
-                            itemData[fieldKey] = $field.val() || [];
-                        } else {
-                            // Regular input, textarea, select, etc.
-                            var value = $field.val();
-                            itemData[fieldKey] = value || '';
-                        }
-                    }
-                }
-            });
-            
-            // Only add item if it has data
-            if (Object.keys(itemData).length > 0) {
-                fieldData.push(itemData);
-            }
-        });
-        
-        // Update the hidden input value with JSON encoded data
-        $hiddenInput.val(JSON.stringify(fieldData));
-    }
+					var $node = $( node );
+					if ( $node.is( '.directorist-repeater' ) || $node.find( '.directorist-repeater' ).length ) {
+						init_repeater_fields( node );
+					}
+				} );
+			} );
+		} );
 
-    // Public API
-    // window.DirectoristRepeater = {
-    //     init: initRepeaterFields,
-    //     addItem: function(fieldKey) {
-    //         var $repeater = $('[data-field-key="' + fieldKey + '"]');
-    //         if ($repeater.length) {
-    //             var $container = $repeater.find('.directorist-repeater-field-body');
-    //             var $template = $container.find('.repeater-template');
-    //             addRepeaterItem($container, $template, fieldKey, {});
-    //         }
-    //     },
-    //     removeItem: function(fieldKey, index) {
-    //         var $repeater = $('[data-field-key="' + fieldKey + '"]');
-    //         if ($repeater.length) {
-    //             var $item = $repeater.find('.repeater-fieldset[data-id="' + index + '"]');
-    //             if ($item.length) {
-    //                 removeRepeaterItem($item.find('.action-minus'));
-    //             }
-    //         }
-    //     }
-    // };
+		observer.observe(
+			document.body,
+			{
+				childList: true,
+				subtree: true
+			}
+		);
+	}
 
-})(jQuery);
+	function init_repeater_fields( scope ) {
+		var $scope = $( scope );
+		var $repeaters = $scope.is( '.directorist-repeater' ) ? $scope : $scope.find( '.directorist-repeater' );
+
+		$repeaters.each( function() {
+			var $repeater = $( this );
+			var $container = $repeater.find( '.directorist-repeater-field-body' );
+			var $items = $container.find( '.repeater-fieldset' );
+
+			if ( ! $container.length || ! $items.length ) {
+				return;
+			}
+
+			if ( ! $repeater.attr( 'data-repeater-label' ) ) {
+				var label_text = $repeater.find( '.fieldset-title' ).first().data( 'label' ) || '';
+
+				if ( ! label_text ) {
+					var title_text = $.trim( $repeater.find( '.fieldset-title' ).first().text() );
+					label_text = title_text ? title_text.replace( /\s*#\d+\s*$/, '' ) : '';
+				}
+
+				$repeater.attr( 'data-repeater-label', label_text );
+			}
+
+			$items.each( function() {
+				init_repeater_item( $( this ) );
+			} );
+
+			reindex_repeater_items( $repeater );
+			update_repeater_hidden_input( $repeater );
+		} );
+	}
+
+	function add_repeater_item( $repeater ) {
+		var $container = $repeater.find( '.directorist-repeater-field-body' );
+		var $template = $container.find( '.repeater-fieldset' ).first();
+
+		if ( ! $container.length || ! $template.length ) {
+			return;
+		}
+
+		var $new_item = $template.clone();
+
+		$new_item.find( 'input, textarea' ).each( function() {
+			var $field = $( this );
+
+			if ( $field.hasClass( 'directorist-repeater-hidden-input' ) ) {
+				return;
+			}
+
+			if ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) {
+				$field.prop( 'checked', false );
+			} else {
+				$field.val( '' );
+			}
+		} );
+
+		$new_item.find( 'select' ).each( function() {
+			$( this ).val( '' );
+		} );
+
+		$container.append( $new_item );
+		init_repeater_item( $new_item );
+		reindex_repeater_items( $repeater );
+		update_repeater_hidden_input( $repeater );
+	}
+
+	function remove_repeater_item( $repeater, $button ) {
+		var $container = $repeater.find( '.directorist-repeater-field-body' );
+		var $item = $button.closest( '.repeater-fieldset' );
+
+		if ( ! $item.length || ! $container.length ) {
+			return;
+		}
+
+		// Keep at least one item in the UI.
+		if ( $container.find( '.repeater-fieldset' ).length <= 1 ) {
+			$item.find( 'input, textarea' ).not( '.directorist-repeater-hidden-input' ).val( '' );
+			$item.find( 'input:checkbox, input:radio' ).prop( 'checked', false );
+			$item.find( 'select' ).val( '' );
+			update_repeater_hidden_input( $repeater );
+			return;
+		}
+
+		$item.remove();
+		reindex_repeater_items( $repeater );
+		update_repeater_hidden_input( $repeater );
+	}
+
+	function reindex_repeater_items( $repeater ) {
+		var $container = $repeater.find( '.directorist-repeater-field-body' );
+		var label_text = $repeater.attr( 'data-repeater-label' ) || '';
+
+		$container.find( '.repeater-fieldset' ).each( function( index ) {
+			var $item = $( this );
+			$item.attr( 'data-id', index + 1 );
+
+			if ( label_text ) {
+				$item.find( '.fieldset-title' ).text( label_text + ' #' + ( index + 1 ) );
+			}
+
+			$item.find( 'input, select, textarea' ).each( function() {
+				var $field = $( this );
+
+				if ( $field.hasClass( 'directorist-repeater-hidden-input' ) ) {
+					return;
+				}
+
+				var name = $field.attr( 'name' );
+				if ( ! name ) {
+					return;
+				}
+
+				var parsed_name = parse_repeater_name( name );
+				if ( parsed_name ) {
+					$field.attr( 'name', parsed_name.base + '[' + index + '][' + parsed_name.key + ']' + parsed_name.array_suffix );
+				}
+
+				// Keep field IDs unique when IDs are index-based.
+				var id = $field.attr( 'id' );
+				if ( id ) {
+					var matched_id = id.match( /^(.*)_\d+(_.*)?$/ );
+					if ( matched_id ) {
+						$field.attr( 'id', matched_id[1] + '_' + index + ( matched_id[2] || '' ) );
+					}
+				}
+			} );
+		} );
+	}
+
+	function parse_repeater_name( name ) {
+		if ( ! name || -1 === name.indexOf( '[' ) ) {
+			return null;
+		}
+
+		// Supports:
+		// parent[0][field]
+		// custom_field[parent][0][field]
+		var matches = name.match( /^(.*)\[\d+\]\[([^\]]+)\](\[\])?$/ );
+
+		if ( ! matches ) {
+			return null;
+		}
+
+		return {
+			base: matches[1],
+			key: matches[2],
+			array_suffix: matches[3] || ''
+		};
+	}
+
+	function init_repeater_item( $item ) {
+		// Rebuild select options for cloned rows from data-options.
+		$item.find( 'select' ).each( function() {
+			var $select = $( this );
+			var options = $select.data( 'options' );
+
+			if ( ! options || ! Array.isArray( options ) ) {
+				return;
+			}
+
+			var selected_value = $select.val();
+			var placeholder = $select.attr( 'placeholder' ) || '';
+
+			$select.empty();
+			$select.append( '<option value="">' + placeholder + '</option>' );
+
+			options.forEach( function( option ) {
+				if ( ! option || 'undefined' === typeof option.option_value ) {
+					return;
+				}
+
+				var option_value = option.option_value;
+				var option_label = option.option_label ? option.option_label : option_value;
+				$select.append( '<option value="' + option_value + '">' + option_label + '</option>' );
+			} );
+
+			if ( selected_value ) {
+				$select.val( selected_value );
+			}
+		} );
+	}
+
+	function update_repeater_hidden_input( $repeater ) {
+		if ( ! $repeater || ! $repeater.length ) {
+			return;
+		}
+
+		var $hidden_input = $repeater.find( '.directorist-repeater-hidden-input' );
+		if ( ! $hidden_input.length ) {
+			return;
+		}
+
+		var field_data = array_from_repeater( $repeater );
+		$hidden_input.val( JSON.stringify( field_data ) );
+	}
+
+	function array_from_repeater( $repeater ) {
+		var field_data = [];
+		var $container = $repeater.find( '.directorist-repeater-field-body' );
+
+		$container.find( '.repeater-fieldset' ).each( function() {
+			var $fieldset = $( this );
+			var item_data = {};
+			var processed_by_name = {};
+
+			$fieldset.find( 'input, select, textarea' ).each( function() {
+				var $field = $( this );
+
+				if ( $field.hasClass( 'directorist-repeater-hidden-input' ) ) {
+					return;
+				}
+
+				var name = $field.attr( 'name' );
+				if ( ! name || processed_by_name[name] ) {
+					return;
+				}
+
+				var parsed_name = parse_repeater_name( name );
+				if ( ! parsed_name ) {
+					return;
+				}
+
+				processed_by_name[name] = true;
+				var field_key = parsed_name.key;
+
+				if ( $field.is( ':checkbox' ) ) {
+					if ( parsed_name.array_suffix ) {
+						var checked_values = [];
+
+						$fieldset.find( 'input[type="checkbox"][name="' + name + '"]:checked' ).each( function() {
+							checked_values.push( $( this ).val() );
+						} );
+
+						item_data[field_key] = checked_values;
+					} else {
+						item_data[field_key] = $field.is( ':checked' ) ? $field.val() : '';
+					}
+					return;
+				}
+
+				if ( $field.is( ':radio' ) ) {
+					var checked_radio = $fieldset.find( 'input[type="radio"][name="' + name + '"]:checked' ).val();
+					item_data[field_key] = checked_radio ? checked_radio : '';
+					return;
+				}
+
+				if ( $field.is( 'select[multiple]' ) ) {
+					item_data[field_key] = $field.val() || [];
+					return;
+				}
+
+				item_data[field_key] = $field.val() || '';
+			} );
+
+			if ( Object.keys( item_data ).length ) {
+				field_data.push( item_data );
+			}
+		} );
+
+		return field_data;
+	}
+
+	window.DirectoristRepeater = window.DirectoristRepeater || {};
+	window.DirectoristRepeater.init = function( scope ) {
+		init_repeater_fields( scope || document );
+	};
+} )( jQuery );

@@ -18,10 +18,10 @@ $field_options = isset($data['options']) ? $data['options'] : array();
 
 ?>
 
-<div class="atbd_content_module directorist-repeater" <?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
+<div class="directorist-repeater" <?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
     <div class="directorist-form-group directorist-form-repeater-group">
-        <div>
+        <div class="directorist-form-group-header">
             <?php \Directorist\Directorist_Listing_Form::instance()->field_label_template($data); ?>
             <?php \Directorist\Directorist_Listing_Form::instance()->field_description_template($data); ?>
         </div>
