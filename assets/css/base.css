@@ -56,3 +56,80 @@
 {
     margin-right: 5px;
 }
+
+/* Repeater Fields */
+
+.directorist-repeater-field-body
+{
+    padding: 15px;
+    border: 1px solid #eee;
+}
+
+.directorist-repeater-field-body .directorist-repeater-field
+{
+    margin-bottom: 10px;
+}
+
+.directorist-repeater-field-body .directorist-repeater-field-description
+{
+    font-size: 14px;
+    
+}
+
+/* Featured Checkbox List Styles */
+.directorist-details-info-wrap .directorist-single-info-featured-checkbox .directorist-single-info__label
+{
+    margin-bottom: 10px;
+}
+
+.directorist-details-info-wrap .directorist-single-info-featured-checkbox .directorist-single-info__value
+{
+    width: 100%;
+}
+
+.directorist-featured-checkbox-list
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.directorist-featured-checkbox-item
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    padding-left: 0 !important;
+    margin-bottom: 8px;
+    color: #333;
+    line-height: 1.6;
+    flex: 0 0 45% !important;
+}
+
+.directorist-featured-checkbox-item:before
+{
+    display: none;
+}
+
+.directorist-featured-checkbox-item i
+{
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.directorist-featured-checkbox-item-label
+{
+    flex: 1;
+    color: var(--color-body) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+}
+
+.directorist-featured-checkbox-item:last-child
+{
+    margin-bottom: 0;
+}

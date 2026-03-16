@@ -10,7 +10,7 @@ namespace Directorist_Advanced_Fields;
 
 use Directorist_Advanced_Fields\Helper;
 
-class Advanced_Fields_Youtube
+class Advanced_Fields_Featured_Checkbox
 {
 
     public function __construct()
@@ -23,37 +23,59 @@ class Advanced_Fields_Youtube
 
     public function atbdp_form_advanced_widgets($widgets)
     {
-        $widgets['youtube-video'] = array(
-            'label' => 'Youtube Video',
-            'icon' => 'uil uil-youtube',
+        $widgets['featured-checkbox'] = array(
+            'label' => 'Featured Checkbox',
+            'icon' => 'uil uil-check-square',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
-                    'value' => 'text',
+                    'value' => 'checkbox',
+                ],
+                'label' => [
+                    'type'  => 'text',
+                    'label' => __('Label', 'directorist'),
+                    'value' => 'Featured Checkbox',
                 ],
                 'field_key' => apply_filters('directorist_custom_field_meta_key_field_args', [
                     'type'  => 'hidden',
                     'label' => __('Key', 'directorist'),
-                    'value' => 'custom-youtube',
+                    'value' => 'custom-featured-checkbox',
                     'rules' => [
                         'unique' => true,
                         'required' => true,
                     ]
                 ]),
+                'options' => [
+                    'type' => 'multi-fields',
+                    'label' => __('Options', 'directorist'),
+                    'add-new-button-label' => __('Add Option', 'directorist'),
+                    'options' => [
+                        'option_value' => [
+                            'type'  => 'text',
+                            'label' => __('Option Value', 'directorist'),
+                            'value' => '',
+                        ],
+                        'option_label' => [
+                            'type'  => 'text',
+                            'label' => __('Option Label', 'directorist'),
+                            'value' => '',
+                        ],
+                    ]
+                ],
                 'class' => [
                     'type'  => 'text',
                     'label' => __('Class', 'directorist'),
-                    'value' => 'directorist-field-youtube',
-                ],
-                'label' => [
-                    'type'  => 'text',
-                    'label' => __('Label', 'directorist'),
-                    'value' => 'Youtube Video',
+                    'value' => 'directorist-field-featured-checkbox',
                 ],
                 'placeholder' => [
                     'type'  => 'text',
                     'label' => __('Placeholder', 'directorist'),
-                    'value' => 'Only YouTube URLs.',
+                    'value' => '',
+                ],
+                'description' => [
+                    'type'  => 'text',
+                    'label' => __('Description', 'directorist'),
+                    'value' => '',
                 ],
                 'required' => [
                     'type'  => 'toggle',
@@ -66,29 +88,35 @@ class Advanced_Fields_Youtube
                     'value' => false,
                 ],
                 'conditional_logic' => Helper::get_conditional_logic_field(),
-            ],
+            ]
+
         );
         return $widgets;
     }
 
     public function atbdp_single_listing_content_widgets($widgets)
     {
-        $widgets['youtube-video'] = [
+        $widgets['featured-checkbox'] = [
             'options' => [
                 'icon' => [
                     'type'  => 'icon',
                     'label' => 'Icon',
-                    'value' => 'lab la-youtube',
+                    'value' => 'las la-check-square',
                 ],
-            ]
+                'label_enabled' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Label', 'directorist'),
+                    'value' => true,
+                ],
+            ],
         ];
         return $widgets;
     }
 
     public function directorist_field_template($template, $field_data)
     {
-        if ('youtube-video' === $field_data['widget_name']) {
-            Helper::get_template_part('listing-form/youtube', $field_data);
+        if ('featured-checkbox' === $field_data['widget_name']) {
+            Helper::get_template_part('listing-form/featured-checkbox', $field_data);
         }
         return $template;
     }
@@ -96,13 +124,12 @@ class Advanced_Fields_Youtube
 
     public function directorist_single_item_template($template, $field_data)
     {
-        if ('youtube-video' === $field_data['widget_name']) {
-            if (!empty($field_data['value'])) {
-                Helper::get_template_part('single/youtube', $field_data);
-            }
+        if ('featured-checkbox' === $field_data['widget_name']) {
+            Helper::get_template_part('single/featured-checkbox', $field_data);
         }
         return $template;
     }
 }
 
-new Advanced_Fields_Youtube;
+new Advanced_Fields_Featured_Checkbox;
+

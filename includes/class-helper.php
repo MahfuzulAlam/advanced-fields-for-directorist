@@ -29,6 +29,11 @@ class Helper
 
     public static function get_template_part($template, $data = array())
     {
+        $listing_form = isset($data['form']) ? $data['form'] : \Directorist\Directorist_Listing_Form::instance();
+
+        $conditional_logic_attr = isset($listing_form) ? $listing_form->get_conditional_logic_attributes( $data ) : '';
+
+        
 
         $template = '/templates/' . $template . '.php';
 
@@ -226,5 +231,18 @@ class Helper
                 echo '<input type="text" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
                 break;
         }
+    }
+
+    public static function get_conditional_logic_field( $field = array() ) {
+        return [
+            'type'        => 'conditional-logic',
+            'label'       => __( 'Conditional Logic', 'directorist' ),
+            'description' => __( 'Show or hide this field based on other field values.', 'directorist' ),
+            'value'       => [
+                'enabled' => false,
+                'action'  => 'show',
+                'groups'  => [],
+            ],
+        ];
     }
 }
