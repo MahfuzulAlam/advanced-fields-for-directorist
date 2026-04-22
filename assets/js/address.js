@@ -1,175 +1,281 @@
 jQuery(function ($) {
-
-  // Helper: check if Google Places API is available
   function isGooglePlacesLoaded() {
-    return (typeof google !== "undefined" && google.maps && google.maps.places);
+    return typeof google !== "undefined" && google.maps && google.maps.places;
   }
 
-  // Init autocomplete for a single input
-  function initAutocompleteForInput(input) {
-    if (!input || !isGooglePlacesLoaded()) return;
+  function getFieldInstance($element) {
+    return $element.closest(".directorist-form-multi-address-field");
+  }
 
-    const opt = {
-      types: ["geocode"],
-      componentRestrictions: {
-        country: directorist.restricted_countries,
-      },
-    };
-    const options = directorist.countryRestriction ? opt : { types: [] };
+  function getAddressLimit($field) {
+    return parseInt($field.attr("data-address-limit"), 10) || parseInt($field.find(".addresses_limit").val(), 10) || 0;
+  }
+
+  function hasLabelField($field) {
+    return $field.attr("data-has-label") === "1";
+  }
+
+  function formatIndex(index) {
+    return String(index + 1).padStart(2, "0");
+  }
+
+  function clearRowCoordinates($row) {
+    $row.find(".google_addresses_lat, .google_addresses_lng").val("");
+  }
+
+  function updateAddButtonVisibility($field) {
+    const limit = getAddressLimit($field);
+    const count = $field.find(".address_item").length;
+    const $button = $field.find(".add_address_btn");
+
+    if (limit > 0 && count >= limit) {
+      $button.hide();
+      return;
+    }
+
+    $button.show();
+  }
+
+  function syncIndices($field) {
+    const $rows = $field.find(".address_item");
+    const shouldHideRemove = $rows.length === 1;
+
+    $rows.each(function (index) {
+      const $row = $(this);
+      $row.attr("data-index", index);
+      $row.find(".address_item__index").text(formatIndex(index));
+      $row.find(".remove_address_btn").toggleClass("is-hidden", shouldHideRemove);
+    });
+  }
+
+  function generateJson($field) {
+    const addresses = [];
+
+    $field.find(".address_item").each(function () {
+      const $row = $(this);
+      const address = ($row.find(".google_addresses").val() || "").trim();
+      const latitude = ($row.find(".google_addresses_lat").val() || "").trim();
+      const longitude = ($row.find(".google_addresses_lng").val() || "").trim();
+      const label = ($row.find(".address_label").val() || "").trim();
+
+      if (!address) {
+        return;
+      }
+
+      const entry = {
+        address: address,
+        latitude: latitude,
+        longitude: longitude,
+      };
+
+      if (label) {
+        entry.label = label;
+      }
+
+      addresses.push(entry);
+    });
+
+    $field.find(".google_addresses_json").val(JSON.stringify(addresses));
+  }
+
+  function buildAddressRow($field) {
+    const hasLabel = hasLabelField($field);
+    const labelField = hasLabel
+      ? `
+          <div class="address_item__input-group">
+            <label class="address_item__input-label">Label</label>
+            <input
+              type="text"
+              autocomplete="off"
+              name="address_labels[]"
+              class="directorist-form-element address_label"
+              placeholder="Main Branch"
+            >
+          </div>
+        `
+      : "";
+
+    return `
+      <div class="address_item" data-index="">
+        <div class="address_item__index">00</div>
+        <div class="address_item__content">
+          ${labelField}
+          <div class="address_item__input-group address_item__input-group--address">
+            <label class="address_item__input-label">Address</label>
+            <input
+              type="text"
+              autocomplete="street-address"
+              name="addresses[]"
+              class="directorist-form-element google_addresses"
+              placeholder="Search for a location"
+            >
+          </div>
+        </div>
+        <input type="hidden" class="google_addresses_lat" name="latitude[]" value="">
+        <input type="hidden" class="google_addresses_lng" name="longitude[]" value="">
+        <button type="button" class="remove_address_btn" aria-label="Remove location">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    `;
+  }
+
+  function initAutocompleteForInput(input) {
+    if (!input || input.dataset.autocompleteReady === "1" || !isGooglePlacesLoaded()) {
+      return;
+    }
+
+    const restrictedCountries = window.directorist && directorist.restricted_countries ? directorist.restricted_countries : null;
+    const options =
+      window.directorist && directorist.countryRestriction && restrictedCountries
+        ? {
+            types: ["geocode"],
+            componentRestrictions: {
+              country: restrictedCountries,
+            },
+          }
+        : {
+            types: ["geocode"],
+          };
 
     const autocomplete = new google.maps.places.Autocomplete(input, options);
+    input.dataset.autocompleteReady = "1";
+    input.dataset.selectedAddress = (input.value || "").trim();
 
     autocomplete.addListener("place_changed", function () {
       const place = autocomplete.getPlace();
-      if (!place.place_id) return;
+      const $row = $(input).closest(".address_item");
+      const $field = getFieldInstance($row);
 
-      const $wrapper = $(input).closest(".address_item");
-      $wrapper.find(".google_addresses_lat").val(place.geometry?.location?.lat() || "");
-      $wrapper.find(".google_addresses_lng").val(place.geometry?.location?.lng() || "");
-
-      // Store full place info (if not already there)
-      let $hiddenInput = $wrapper.find(".google_place");
-      if (!$hiddenInput.length) {
-        $hiddenInput = $('<input>', { type: 'hidden', class: 'google_place' }).appendTo($wrapper);
+      if (place.geometry && place.geometry.location) {
+        $row.find(".google_addresses_lat").val(place.geometry.location.lat());
+        $row.find(".google_addresses_lng").val(place.geometry.location.lng());
+      } else {
+        clearRowCoordinates($row);
       }
-      $hiddenInput.val(JSON.stringify({
-        place_id: place.place_id,
-        place_address: input.value,
-      }));
 
-      generateJson();
+      input.dataset.selectedAddress = (input.value || "").trim();
+      generateJson($field);
     });
   }
 
-  // Init all autocompletes on page load
-  function initAutocomplete() {
-    document.querySelectorAll(".directorist-form-multi-address-field .google_addresses").forEach(function (input) {
-      initAutocompleteForInput(input);
-    });
-  }
-
-  // Random int generator
-  function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  // Get current address count
-  function getCurrentAddressCount() {
-    return $(".directorist-form-multi-address-field .address_item").length;
-  }
-
-  // Get address limit from input field
-  function getAddressLimit() {
-    const limitInput = document.getElementById('addresses_limit');
-    return limitInput ? parseInt(limitInput.value) || 0 : 0;
-  }
-
-  // Update add button visibility based on limit
-  function updateAddButtonVisibility() {
-    const currentCount = getCurrentAddressCount();
-    const limit = getAddressLimit();
-    const $addBtn = $(".directorist-form-multi-address-field .add_address_btn");
-    
-    if (limit > 0 && currentCount >= limit) {
-      $addBtn.hide();
-    } else {
-      $addBtn.show();
+  function initAutocomplete($context) {
+    if (!isGooglePlacesLoaded()) {
+      return;
     }
+
+    $context.find(".google_addresses").each(function () {
+      initAutocompleteForInput(this);
+    });
   }
 
-  // Check if labels are enabled
-  function isLabelEnabled() {
-    return $(".directorist-form-multi-address-field .address_label").length > 0;
-  }
-
-  // Generate new address field
-  function generateAddressField() {
-    const currentCount = getCurrentAddressCount();
-    const limit = getAddressLimit();
-    
-    // Check if limit is reached
-    if (limit > 0 && currentCount >= limit) {
-      return; // Don't add more addresses if limit is reached
-    }
-    
-    const uniqueId = getRandomInt(100000, 999999);
-    const labelField = isLabelEnabled() ? 
-      `<input type="text" autocomplete="off" name="address_labels[]" 
-               class="directorist-form-element address_label" 
-               placeholder="Enter label (e.g., Main Branch)">` : '';
-    
-    const newField = `
-      <div class="address_item" data-id="${uniqueId}">
-        ${labelField}
-        <input type="text" autocomplete="off" name="addresses[]" 
-               class="directorist-form-element google_addresses" 
-               placeholder="Enter address">
-        <input type="hidden" class="google_addresses_lat" name="latitude[]" value="">
-        <input type="hidden" class="google_addresses_lng" name="longitude[]" value="">
-        <button type="button" class="remove_address_btn">X</button>
-      </div>
-    `;
-    $(".directorist-form-multi-address-field .address_field_holder").append(newField);
-    
-    // Update button visibility after adding
-    updateAddButtonVisibility();
-  }
-
-  // Generate JSON from all fields
-  function generateJson() {
-    const addresses = [];
-    $(".address_item").each(function () {
-      const addr = $(this).find(".google_addresses").val() || "";
-      const lat = $(this).find(".google_addresses_lat").val() || "";
-      const lng = $(this).find(".google_addresses_lng").val() || "";
-      const label = $(this).find(".address_label").val() || "";
-
-      if (addr.trim() !== "") {
-        const addressData = { address: addr, latitude: lat, longitude: lng };
-        if (label.trim() !== "") {
-          addressData.label = label;
-        }
-        addresses.push(addressData);
-      }
+  function initField($field) {
+    $field.find(".google_addresses").each(function () {
+      this.dataset.selectedAddress = (this.value || "").trim();
     });
 
-    $('input.google_addresses_json').val(JSON.stringify(addresses));
+    syncIndices($field);
+    updateAddButtonVisibility($field);
+    generateJson($field);
+    initAutocomplete($field);
   }
 
-  // Events
+  function initializeAllFields() {
+    $(".directorist-form-multi-address-field").each(function () {
+      initField($(this));
+    });
+  }
+
+  function scheduleAutocompleteInit(attempts) {
+    if (isGooglePlacesLoaded()) {
+      initializeAllFields();
+      return;
+    }
+
+    if (attempts <= 0) {
+      return;
+    }
+
+    window.setTimeout(function () {
+      scheduleAutocompleteInit(attempts - 1);
+    }, 500);
+  }
+
   $(document).on("click", ".directorist-form-multi-address-field .add_address_btn", function () {
-    generateAddressField();
-    const $newField = $(".directorist-form-multi-address-field .address_field_holder .address_item").last().find(".google_addresses");
-    if ($newField.length) {
-      initAutocompleteForInput($newField[0]);
+    const $field = getFieldInstance($(this));
+    const limit = getAddressLimit($field);
+    const count = $field.find(".address_item").length;
+
+    if (limit > 0 && count >= limit) {
+      return;
+    }
+
+    const $row = $(buildAddressRow($field));
+    $field.find(".address_field_holder").append($row);
+
+    syncIndices($field);
+    updateAddButtonVisibility($field);
+    initAutocomplete($row);
+    generateJson($field);
+
+    const input = $row.find(".google_addresses").get(0);
+    if (input) {
+      input.focus();
     }
   });
 
   $(document).on("click", ".directorist-form-multi-address-field .remove_address_btn", function () {
-    $(this).closest(".address_item").remove();
-    generateJson();
-    updateAddButtonVisibility(); // Update button visibility after removing
-  });
+    const $button = $(this);
+    const $field = getFieldInstance($button);
+    const $row = $button.closest(".address_item");
 
-  // Update JSON when label input changes
-  $(document).on("input", ".directorist-form-multi-address-field .address_label", function () {
-    generateJson();
-  });
+    if ($field.find(".address_item").length === 1) {
+      $row.find("input[type='text']").val("");
+      clearRowCoordinates($row);
 
-  // Init autocomplete after window load
-  $(window).on("load", function () {
-    if (isGooglePlacesLoaded()) {
-      // take some time
-      setTimeout(initAutocomplete, 1000);
-      //initAutocomplete();
+      const input = $row.find(".google_addresses").get(0);
+      if (input) {
+        input.dataset.selectedAddress = "";
+      }
     } else {
-      console.error("Google Maps JS API not loaded!");
+      $row.remove();
     }
-    
-    // Update add button visibility on page load
-    updateAddButtonVisibility();
+
+    syncIndices($field);
+    updateAddButtonVisibility($field);
+    generateJson($field);
   });
 
+  $(document).on("input", ".directorist-form-multi-address-field .address_label", function () {
+    generateJson(getFieldInstance($(this)));
+  });
+
+  $(document).on("input", ".directorist-form-multi-address-field .google_addresses", function () {
+    const input = this;
+    const $input = $(input);
+    const $field = getFieldInstance($input);
+    const $row = $input.closest(".address_item");
+    const currentValue = ($input.val() || "").trim();
+
+    if ((input.dataset.selectedAddress || "") !== currentValue) {
+      clearRowCoordinates($row);
+    }
+
+    generateJson($field);
+  });
+
+  $(document).on("change", ".directorist-form-multi-address-field .google_addresses_lat, .directorist-form-multi-address-field .google_addresses_lng", function () {
+    generateJson(getFieldInstance($(this)));
+  });
+
+  $(document).on("submit", "form", function () {
+    $(".directorist-form-multi-address-field").each(function () {
+      generateJson($(this));
+    });
+  });
+
+  initializeAllFields();
+  $(window).on("load", function () {
+    scheduleAutocompleteInit(12);
+  });
 });

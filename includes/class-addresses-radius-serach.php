@@ -18,7 +18,7 @@ if (! class_exists('DAF_Multi_Location_Radius_Search')):
         protected $min_distance;
         protected $max_distance;
         protected $units;
-        protected $meta_key;
+        protected $meta_keys = [];
 
         public function __construct()
         {
@@ -32,11 +32,14 @@ if (! class_exists('DAF_Multi_Location_Radius_Search')):
             $default_posts = $this->default_query_results($args);
             $multi_zip_search_posts = $this->multiple_radius_search_results($args);
 
-            $all_post_ids = array_merge($default_posts, $multi_zip_search_posts);
+            $all_post_ids = array_values(array_unique(array_map('intval', array_merge($default_posts, $multi_zip_search_posts))));
 
             if (!empty($all_post_ids)) {
                 unset($args['atbdp_geo_query']);
                 $args['post__in'] = $all_post_ids;
+                $args['orderby'] = 'post__in';
+            } else {
+                $args['post__in'] = [0];
             }
 
             return $args;
@@ -66,7 +69,7 @@ if (! class_exists('DAF_Multi_Location_Radius_Search')):
             $this->min_distance = isset($geo_query['min_distance']) ? (float) $geo_query['min_distance'] : 0;
             $this->max_distance = isset($geo_query['max_distance']) ? (float) $geo_query['max_distance'] : 0;
             $this->units        = isset($geo_query['units']) && strtolower($geo_query['units']) === 'miles' ? 'miles' : 'kms';
-            $this->meta_key     = "_multilocation";
+            $this->meta_keys    = [ 'addresses', '_multilocation' ];
         }
 
         /**
@@ -85,23 +88,33 @@ if (! class_exists('DAF_Multi_Location_Radius_Search')):
 
             $filtered = [];
             foreach ($query->posts as $post) {
-                $addresses = get_post_meta($post, $this->meta_key, true);
-                $addresses = is_string($addresses) ? json_decode($addresses, true) : $addresses;
-                
+                $addresses = $this->get_post_addresses((int) $post);
+
                 if (! empty($addresses)) {
                     $distance = $this->get_closest_distance($addresses);
                     if ($distance !== false && $distance >= $this->min_distance && $distance <= $this->max_distance) {
-                        $filtered[] = $post;
+                        $filtered[(int) $post] = $distance;
                     }
                 }
             }
 
-            // Sort posts by nearest distance
-            usort($filtered, function ($a, $b) {
-                return $a->distance <=> $b->distance;
-            });
+            asort($filtered, SORT_NUMERIC);
 
-            return $filtered;
+            return array_keys($filtered);
+        }
+
+        protected function get_post_addresses($post_id)
+        {
+            foreach ($this->meta_keys as $meta_key) {
+                $addresses = get_post_meta($post_id, $meta_key, true);
+                $addresses = is_string($addresses) ? json_decode($addresses, true) : $addresses;
+
+                if (is_array($addresses) && ! empty($addresses)) {
+                    return $addresses;
+                }
+            }
+
+            return [];
         }
 
         /**

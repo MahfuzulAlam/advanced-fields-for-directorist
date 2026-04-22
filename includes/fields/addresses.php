@@ -87,6 +87,11 @@ class Advanced_Fields_Address_List
                     'label' => 'Icon',
                     'value' => 'la la-map',
                 ],
+                'allow_field_label' => [
+                    'type'  => 'toggle',
+                    'label' => __('Allow Field Label', 'directorist-advanced-fields'),
+                    'value' => false,
+                ],
                 'display' => [
                     'type' => 'radio',
                     'label' => 'Display',
