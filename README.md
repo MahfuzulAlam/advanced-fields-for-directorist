@@ -20,6 +20,7 @@ Current release: **2.1.0**
 - WP Editor
 - Featured Checkbox
 - Repeater
+- Multiple Addresses
 
 ## Repeater Field
 

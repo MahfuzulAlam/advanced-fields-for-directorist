@@ -133,3 +133,425 @@
 {
     margin-bottom: 0;
 }
+
+/* Multiple Address Fields */
+
+.directorist-form-multi-address-field {
+    --daf-surface: #ffffff;
+    --daf-surface-muted: #f8fafc;
+    --daf-border: #d7dfeb;
+    --daf-text: #0f172a;
+    --daf-text-muted: #526176;
+    --daf-primary: #2563eb;
+    --daf-primary-dark: #1d4ed8;
+    --daf-accent: #0f766e;
+    --daf-danger: #dc2626;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.directorist-form-multi-address-field label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--daf-text);
+}
+
+.directorist-form-multi-address-field__header {
+    margin-bottom: 18px;
+}
+
+.directorist-form-multi-address-field__hint {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--daf-text-muted);
+}
+
+.directorist-form-multi-address-field .address_field_holder {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.directorist-form-multi-address-field .address_item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--daf-surface);
+    padding: 16px;
+    border: 1px solid var(--daf-border);
+    border-radius: 16px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+}
+
+.directorist-form-multi-address-field .address_item__index,
+.directorist-single-info__addresses .address-item__index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    height: 42px;
+    padding: 0 10px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.14), rgba(15, 118, 110, 0.2));
+    color: var(--daf-primary-dark);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.directorist-form-multi-address-field .address_item__content {
+    display: grid;
+    gap: 12px;
+}
+
+.directorist-form-multi-address-field .address_item__input-group {
+    display: grid;
+    gap: 7px;
+}
+
+.directorist-form-multi-address-field .address_item__input-label {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--daf-text-muted);
+}
+
+.directorist-form-multi-address-field .address_item input[type="text"] {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid var(--daf-border);
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--daf-text);
+    background: var(--daf-surface-muted);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.directorist-form-multi-address-field .address_item input[type="text"]:focus {
+    border-color: rgba(37, 99, 235, 0.45);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    outline: none;
+}
+
+.directorist-form-multi-address-field .remove_address_btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(220, 38, 38, 0.16);
+    background-color: rgba(220, 38, 38, 0.08);
+    color: var(--daf-danger);
+    padding: 0;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.directorist-form-multi-address-field .remove_address_btn:hover {
+    background-color: var(--daf-danger);
+    border-color: var(--daf-danger);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.directorist-form-multi-address-field .remove_address_btn.is-hidden {
+    display: none;
+}
+
+.directorist-form-multi-address-field .add_address_btn {
+    margin-top: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--daf-primary) 0%, var(--daf-accent) 100%);
+    border: none;
+    color: #ffffff;
+    padding: 12px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 16px 32px rgba(37, 99, 235, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.directorist-form-multi-address-field .add_address_btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 36px rgba(37, 99, 235, 0.22);
+}
+
+.directorist-details-info-wrap .directorist-single-info-address {
+    flex-direction: column;
+    align-items: flex-start !important;
+}
+
+.directorist-details-info-wrap .directorist-single-info-address .directorist-single-info__label {
+    margin-bottom: 14px;
+}
+
+.directorist-details-info-wrap .directorist-single-info-address .directorist-single-info__value {
+    width: 100%;
+}
+
+.directorist-single-info-address .directorist-single-info__addresses{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.directorist-single-info__addresses-layout {
+    display: grid;
+    gap: 18px;
+}
+
+.directorist-single-info__addresses-layout.has-map {
+    align-items: start;
+}
+
+.directorist-single-info__addresses .addresses-list {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+}
+
+.directorist-single-info__addresses .address-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 18px;
+    border-radius: 18px;
+    border: 1px solid rgba(191, 204, 222, 0.8);
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    box-shadow: 0 16px 38px rgba(15, 23, 42, 0.05);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.directorist-single-info__addresses .address-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(37, 99, 235, 0.35);
+    box-shadow: 0 22px 42px rgba(37, 99, 235, 0.1);
+}
+
+.directorist-single-info__addresses .address-item.active {
+    border-color: rgba(37, 99, 235, 0.48);
+    box-shadow: 0 24px 44px rgba(37, 99, 235, 0.14);
+}
+
+.directorist-single-info__addresses .address-item__content {
+    display: grid;
+    gap: 6px;
+}
+
+.directorist-single-info__addresses .address-item__eyebrow,
+.addresses-map-container__eyebrow,
+.daf-map-popup__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--daf-text-muted);
+}
+
+.directorist-single-info__addresses .address-item__title,
+.daf-map-popup__title {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--daf-text);
+}
+
+.directorist-single-info__addresses .address-item__text,
+.addresses-map-container__text,
+.daf-map-popup__text {
+    margin: 0;
+    font-size: 10px;
+    line-height: 1.65;
+    color: var(--daf-text-muted);
+}
+
+.directorist-single-info__addresses .address-item__actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.directorist-single-info__addresses .address-item__action,
+.daf-map-popup__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 5px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: var(--daf-primary);
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.directorist-single-info__addresses .address-item__action:hover,
+.daf-map-popup__link:hover {
+    transform: translateY(-1px);
+    color: #ffffff;
+    background: var(--daf-primary-dark);
+}
+
+.directorist-single-info__addresses .address-item__action--ghost {
+    background: rgba(37, 99, 235, 0.08);
+    border-color: rgba(37, 99, 235, 0.14);
+    color: var(--daf-primary-dark);
+}
+
+.directorist-single-info__addresses .address-item__action--ghost:hover {
+    background: rgba(37, 99, 235, 0.14);
+    color: var(--daf-primary-dark);
+}
+
+.addresses-map-container {
+    display: grid;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid rgba(191, 204, 222, 0.8);
+    border-radius: 22px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05);
+}
+
+.addresses-map-container__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.addresses-map-container__text {
+    margin-top: 4px;
+}
+
+.addresses-map {
+    width: 100%;
+    height: 400px;
+    background-color: #f3f4f6;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px rgba(191, 204, 222, 0.7);
+}
+
+.addresses-map .leaflet-control-attribution,
+.addresses-map .gm-style .gm-style-cc {
+    font-size: 10px;
+}
+
+.daf-map-popup {
+    display: grid;
+    gap: 8px;
+    min-width: 200px;
+    padding: 10px;
+}
+
+.daf-map-popup__link {
+    width: fit-content;
+    min-height: 36px;
+    margin-top: 4px;
+}
+
+.daf-map-marker-icon {
+    background: transparent;
+    border: 0;
+}
+
+.daf-map-marker {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 16px 16px 16px 4px;
+    transform: rotate(45deg);
+    transform-origin: center;
+    background: linear-gradient(135deg, var(--daf-primary) 0%, var(--daf-accent) 100%);
+    border: 2px solid #ffffff;
+    box-shadow: 0 18px 28px rgba(15, 23, 42, 0.22);
+}
+
+.daf-map-marker__pin,
+.daf-map-marker__pulse {
+    position: absolute;
+    inset: 0;
+}
+
+.daf-map-marker__pin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-45deg);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.daf-map-marker__pulse::before {
+    content: "";
+    position: absolute;
+    inset: 6px;
+    border-radius: 12px 12px 12px 3px;
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.daf-map-marker.is-active {
+    background: linear-gradient(135deg, #0f766e 0%, #155e75 100%);
+    box-shadow: 0 22px 34px rgba(15, 118, 110, 0.28);
+}
+
+/* Responsive map */
+@media (min-width: 992px) {
+    .directorist-single-info__addresses-layout.has-map {
+        grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .addresses-map {
+        height: 300px;
+    }
+
+    .directorist-form-multi-address-field {
+        padding: 18px;
+    }
+
+    .directorist-form-multi-address-field .address_item {
+        grid-template-columns: 1fr;
+    }
+
+    .directorist-form-multi-address-field .address_item__index {
+        justify-self: flex-start;
+    }
+
+    .directorist-form-multi-address-field .remove_address_btn {
+        justify-self: flex-end;
+    }
+
+    .directorist-single-info__addresses .address-item {
+        grid-template-columns: 1fr;
+    }
+}

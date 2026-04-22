@@ -64,6 +64,7 @@ if (!class_exists('Directorist_Advanced_Fields')) {
             require_once self::$base_dir . '/includes/class-helper.php';
             require_once self::$base_dir . '/includes/class-advanced-fields.php';
             require_once self::$base_dir . '/includes/class-scripts.php';
+            require_once self::$base_dir . '/includes/class-addresses-radius-serach.php';
 
             require_once self::$base_dir . '/vendor/autoload.php';
         }
