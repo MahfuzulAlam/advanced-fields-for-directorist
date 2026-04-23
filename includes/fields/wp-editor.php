@@ -25,7 +25,7 @@ class Advanced_Fields_WP_Editor
     {
         $widgets['wp-editor'] = array(
             'label' => 'WP Editor',
-            'icon' => 'uil uil-align-left',
+            'icon' => 'las la-align-left',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -73,7 +73,7 @@ class Advanced_Fields_WP_Editor
                 'icon' => [
                     'type'  => 'icon',
                     'label' => 'Icon',
-                    'value' => 'uil uil-align-left',
+                    'value' => 'las la-align-left',
                 ],
             ]
         ];

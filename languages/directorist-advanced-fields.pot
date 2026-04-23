@@ -38,5 +38,5 @@ msgid "M Alam"
 msgstr ""
 
 #. Description of the plugin
-msgid "This is an extension for Directorist Plugin."
+msgid "Extend Directorist with advanced custom fields including repeater, address list, media, shortcode, iframe, and editor fields for listing forms and single listing display."
 msgstr ""

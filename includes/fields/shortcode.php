@@ -25,8 +25,7 @@ class Advanced_Fields_Shortcode
     {
         $widgets['shortcode'] = array(
             'label' => 'Shortcode',
-            'icon' => 'uil uil-arrow
-        ',
+            'icon' => 'las la-code',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',

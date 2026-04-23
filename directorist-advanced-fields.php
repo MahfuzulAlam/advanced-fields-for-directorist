@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Plugin Name: Advanced Fields for Directorist
- * Plugin URI: https://github.com/MahfuzulAlam/advanced-fields-for-directorist
- * Description: This is an extension for Directorist Plugin.
- * Version: 2.1.0
- * Author: M Alam
- * Author URI: https://github.com/MahfuzulAlam
+ * Plugin Name: Directorist - Advanced Fields
+ * Plugin URI: https://wpxplore.com/tools/directorist-advanced-fields/
+ * Description: Extend Directorist with advanced custom fields including repeater, address list, media, shortcode, iframe, and editor fields for listing forms and single listing display.
+ * Version: 2.2.0
+ * Author: wpXplore
+ * Author URI: https://wpxplore.com/
  * License: GPLv2 or later
  * Text Domain: directorist-advanced-fields
  * Domain Path: /languages
@@ -16,7 +16,7 @@
 defined('ABSPATH') || die('No direct script access allowed!');
 
 if ( ! defined( 'DIRECTORIST_ADVANCED_FIELDS_VERSION' ) ) {
-    define( 'DIRECTORIST_ADVANCED_FIELDS_VERSION', '2.1.0' );
+    define( 'DIRECTORIST_ADVANCED_FIELDS_VERSION', '2.2.0' );
 }
 
 if (!class_exists('Directorist_Advanced_Fields')) {

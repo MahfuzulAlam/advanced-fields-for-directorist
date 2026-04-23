@@ -23,7 +23,7 @@ class Advanced_Fields_Address_List
     {
         $widgets['addresses'] = [
                 'label'   => __('Address List', 'directorist-advanced-fields'),
-                'icon'    => 'la la-map',
+                'icon'    => 'las la-map-marked-alt',
                 'options' => [
                     'type' => [
                         'type'  => 'hidden',
@@ -85,7 +85,7 @@ class Advanced_Fields_Address_List
                 'icon' => [
                     'type'  => 'icon',
                     'label' => 'Icon',
-                    'value' => 'la la-map',
+                    'value' => 'las la-map-marked-alt',
                 ],
                 'allow_field_label' => [
                     'type'  => 'toggle',

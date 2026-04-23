@@ -1,6 +1,6 @@
 {
     "name": "directorist/directorist-advanced-fields",
-    "description": "Advanced fields for the Directorist plugin",
+    "description": "Extend Directorist with advanced custom fields for listing forms, admin editing, and single listing display.",
     "type": "project",
     "license": "GLP",
     "authors": [

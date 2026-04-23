@@ -25,8 +25,7 @@ class Advanced_Fields_Iframe
     {
         $widgets['iframe'] = array(
             'label' => 'iFrame',
-            'icon' => 'uil uil-window-maximize
-        ',
+            'icon' => 'las la-window-maximize',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',

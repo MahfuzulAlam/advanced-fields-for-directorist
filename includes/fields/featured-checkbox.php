@@ -25,7 +25,7 @@ class Advanced_Fields_Featured_Checkbox
     {
         $widgets['featured-checkbox'] = array(
             'label' => 'Featured Checkbox',
-            'icon' => 'uil uil-check-square',
+            'icon' => 'las la-check-square',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
@@ -132,4 +132,3 @@ class Advanced_Fields_Featured_Checkbox
 }
 
 new Advanced_Fields_Featured_Checkbox;
-

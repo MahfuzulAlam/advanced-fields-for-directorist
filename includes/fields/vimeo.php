@@ -25,7 +25,7 @@ class Advanced_Fields_Vimeo
     {
         $widgets['vimeo-video'] = array(
             'label' => 'Vimeo Video',
-            'icon' => 'uil uil-video',
+            'icon' => 'lab la-vimeo',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',

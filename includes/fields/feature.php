@@ -25,8 +25,7 @@ class Advanced_Fields_Feature
     {
         $widgets['feature'] = array(
             'label' => 'Feature List',
-            'icon' => 'las la-list-alt
-        ',
+            'icon' => 'las la-list-alt',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',

@@ -25,7 +25,7 @@ class Advanced_Fields_Youtube
     {
         $widgets['youtube-video'] = array(
             'label' => 'Youtube Video',
-            'icon' => 'uil uil-youtube',
+            'icon' => 'lab la-youtube',
             'options' => [
                 'type' => [
                     'type'  => 'hidden',
