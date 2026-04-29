@@ -45,7 +45,7 @@ if (!class_exists('Directorist_Advanced_Fields')) {
 
         private function init()
         {
-            add_action('plugins_loaded', array($this, 'load_textdomain'), 20);
+            $this->load_textdomain();
 
             self::$base_dir = plugin_dir_path(__FILE__);
             self::$base_url = plugin_dir_url(__FILE__);
@@ -79,8 +79,13 @@ if (!class_exists('Directorist_Advanced_Fields')) {
         return Directorist_Advanced_Fields::instance();
     }
 
-    // Instantiate Directorist_Advanced_Fields, when Directorist plugin is active
-    if (in_array('directorist/directorist-base.php', (array) get_option('active_plugins'))) {
-        Directorist_Advanced_Fields();
-    }
+    add_action(
+        'plugins_loaded',
+        static function () {
+            if ( class_exists( '\Directorist\Directorist_Listing_Form' ) ) {
+                Directorist_Advanced_Fields();
+            }
+        },
+        30
+    );
 }

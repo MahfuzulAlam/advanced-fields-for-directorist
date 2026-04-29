@@ -24,8 +24,8 @@ $conditional_logic_attr = \Directorist\Directorist_Listing_Form::instance()->get
 
             <?php $uniqid = $option['option_value'] . '-' . wp_rand();  ?>
 
-            <div class="directorist-checkbox directorist-mb-10 feature-<?php echo trim($option_class); ?>">
-                <input type="checkbox" id="<?php echo esc_attr($uniqid); ?>" name="<?php echo esc_attr($data['field_key']); ?>[]" value="<?php echo esc_attr($option['option_value']); ?>" <?php echo in_array($option['option_value'], $data['value']) ? 'checked="checked"' : ''; ?>>
+            <div class="directorist-checkbox directorist-mb-10 feature-<?php echo esc_attr( trim( (string) $option_class ) ); ?>">
+                <input type="checkbox" id="<?php echo esc_attr($uniqid); ?>" name="<?php echo esc_attr($data['field_key']); ?>[]" value="<?php echo esc_attr($option['option_value']); ?>" <?php echo in_array($option['option_value'], (array) $data['value'], true) ? 'checked="checked"' : ''; ?>>
                 <label for="<?php echo esc_attr($uniqid); ?>" class="directorist-checkbox__label"><?php echo esc_html($option['option_label']); ?></label>
             </div>
 

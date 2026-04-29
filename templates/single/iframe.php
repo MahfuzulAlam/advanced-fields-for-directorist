@@ -8,7 +8,15 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+use Directorist_Advanced_Fields\Helper;
+
 if( ! $data['value'] ) return;
+
+$iframe_value = Helper::sanitize_iframe_html( $data['value'] );
+
+if ( '' === trim( $iframe_value ) ) {
+    return;
+}
 
 ?>
 
@@ -19,6 +27,6 @@ if( ! $data['value'] ) return;
         <span class="directorist-single-info__label--text"><?php echo esc_html($data['label']); ?></span>
     </div>
 
-    <div class="directorist-single-info__value"><?php echo $data['value']; ?></div>
+    <div class="directorist-single-info__value"><?php echo $iframe_value; ?></div>
 
 </div>

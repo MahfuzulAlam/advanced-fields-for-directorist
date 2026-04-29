@@ -8,6 +8,8 @@
 
 namespace Directorist_Advanced_Fields;
 
+defined( 'ABSPATH' ) || exit;
+
 class Advanced_Fields_Address_List
 {
 

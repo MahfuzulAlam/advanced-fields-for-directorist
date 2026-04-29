@@ -6,6 +6,8 @@
  * @version 1.0
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $data['value'] = isset($data['value']) && !empty($data['value']) ? $data['value'] : array();
 ?>
 
@@ -31,4 +33,3 @@ $data['value'] = isset($data['value']) && !empty($data['value']) ? $data['value'
     <?php \Directorist\Directorist_Listing_Form::instance()->field_description_template($data); ?>
 
 </div>
-

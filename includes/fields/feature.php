@@ -8,6 +8,8 @@
 
 namespace Directorist_Advanced_Fields;
 
+defined( 'ABSPATH' ) || exit;
+
 use Directorist_Advanced_Fields\Helper;
 
 class Advanced_Fields_Feature

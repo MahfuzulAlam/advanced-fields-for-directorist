@@ -9,7 +9,7 @@
 if (!defined('ABSPATH')) exit;
 ?>
 
-<div class="directorist-form-group directorist-form-video-field directorist-form-vimeo-field <?php echo isset( $data[ 'class' ] ) ? $data[ 'class' ] : '' ; ?>" <?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
+<div class="directorist-form-group directorist-form-video-field directorist-form-vimeo-field <?php echo isset( $data['class'] ) ? esc_attr( $data['class'] ) : ''; ?>" <?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
     <?php $listing_form->field_label_template( $data ); ?>
 

@@ -8,6 +8,8 @@
 
 namespace Directorist_Advanced_Fields;
 
+defined( 'ABSPATH' ) || exit;
+
 use WP_Query;
 
 if (! class_exists('DAF_Multi_Location_Radius_Search')):

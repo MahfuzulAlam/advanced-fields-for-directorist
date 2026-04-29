@@ -8,10 +8,71 @@
 
 namespace Directorist_Advanced_Fields;
 
+defined( 'ABSPATH' ) || exit;
+
 use Directorist_Advanced_Fields;
 
 class Helper
 {
+    public static function get_allowed_iframe_html()
+    {
+        $allowed_tags = array(
+            'iframe' => array(
+                'allow'           => true,
+                'allowfullscreen' => true,
+                'frameborder'     => true,
+                'height'          => true,
+                'loading'         => true,
+                'referrerpolicy'  => true,
+                'sandbox'         => true,
+                'src'             => true,
+                'title'           => true,
+                'width'           => true,
+            ),
+        );
+
+        return apply_filters( 'daf_allowed_iframe_html', $allowed_tags );
+    }
+
+    public static function sanitize_iframe_html( $value )
+    {
+        return wp_kses( (string) $value, self::get_allowed_iframe_html() );
+    }
+
+    public static function get_allowed_shortcode_tags()
+    {
+        $default_tags = array( 'audio', 'caption', 'gallery', 'playlist', 'video' );
+        $allowed_tags = apply_filters( 'daf_allowed_shortcode_tags', $default_tags );
+
+        return array_values(
+            array_filter(
+                array_map( 'sanitize_key', (array) $allowed_tags ),
+                'strlen'
+            )
+        );
+    }
+
+    public static function render_allowed_shortcode( $value )
+    {
+        $value = trim( (string) $value );
+
+        if ( '' === $value ) {
+            return '';
+        }
+
+        preg_match( '/^\[([a-zA-Z0-9_-]+)/', $value, $matches );
+        $shortcode_tag = isset( $matches[1] ) ? sanitize_key( $matches[1] ) : '';
+
+        if ( '' === $shortcode_tag || ! shortcode_exists( $shortcode_tag ) ) {
+            return '';
+        }
+
+        if ( ! in_array( $shortcode_tag, self::get_allowed_shortcode_tags(), true ) ) {
+            return '';
+        }
+
+        return do_shortcode( $value );
+    }
 
     public static function get_file_uri($path)
     {
@@ -113,8 +174,9 @@ class Helper
         $result = array_filter($options, function ($option) use ($value) {
             return ($option['option_value'] == $value);
         });
-        e_var_dump($result);
-        return $result && count($result) > 0 ? $result[0]['option_label'] : '';
+        $result = ! empty( $result ) ? reset( $result ) : array();
+
+        return ! empty( $result['option_label'] ) ? $result['option_label'] : '';
     }
 
     public static function feature_option_list($options)
@@ -138,7 +200,6 @@ class Helper
         $field_class = isset($field['field_class']) ? $field['field_class'] : '';
         $field_options = isset($field['field_options']) ? $field['field_options'] : array();
         
-        // Generate field name
         $field_name = $parent_key . '[' . $index . '][' . $field_key . ']';
         $field_id = $field_key . '_' . $index;
         
@@ -182,7 +243,7 @@ class Helper
                 break;
                 
             case 'select':
-                echo '<select name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" data-options=\'' . json_encode($field_options) . '\'>';
+                echo '<select name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" data-options="' . esc_attr( wp_json_encode( $field_options ) ) . '">';
                 echo '<option value="">' . esc_html($field_placeholder) . '</option>';
                 if (!empty($field_options) && is_array($field_options)) {
                     foreach ($field_options as $option) {

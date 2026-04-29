@@ -8,7 +8,15 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+use Directorist_Advanced_Fields\Helper;
+
 if( ! $data['value'] ) return;
+
+$shortcode_output = Helper::render_allowed_shortcode( $data['value'] );
+
+if ( '' === trim( $shortcode_output ) ) {
+    return;
+}
 
 ?>
 
@@ -19,6 +27,6 @@ if( ! $data['value'] ) return;
         <span class="directorist-single-info__label--text"><?php echo esc_html($data['label']); ?></span>
     </div>
 
-    <div class="directorist-single-info__value"><?php echo do_shortcode($data['value']); ?></div>
+    <div class="directorist-single-info__value"><?php echo $shortcode_output; ?></div>
 
 </div>

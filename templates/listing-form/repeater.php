@@ -27,7 +27,7 @@ $field_options = isset($data['options']) ? $data['options'] : array();
         </div>
         
         <!-- Hidden input to store the field key -->
-        <input type="hidden" class="directorist-repeater-hidden-input" name="<?php echo esc_attr($data['field_key']); ?>" value="<?php echo json_encode($existing_values); ?>" />
+        <input type="hidden" class="directorist-repeater-hidden-input" name="<?php echo esc_attr($data['field_key']); ?>" value="<?php echo esc_attr( wp_json_encode( $existing_values ) ); ?>" />
         
         <div class="directorist-repeater-field-body">
             <?php if (!empty($existing_values) && is_array($existing_values)) : ?>
