@@ -297,8 +297,8 @@ class Helper
     public static function get_conditional_logic_field( $field = array() ) {
         return [
             'type'        => 'conditional-logic',
-            'label'       => __( 'Conditional Logic', 'directorist' ),
-            'description' => __( 'Show or hide this field based on other field values.', 'directorist' ),
+            'label'       => __( 'Conditional Logic', 'directorist-advanced-fields' ),
+            'description' => __( 'Show or hide this field based on other field values.', 'directorist-advanced-fields' ),
             'value'       => [
                 'enabled' => false,
                 'action'  => 'show',

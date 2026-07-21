@@ -10,7 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-extract($data);
+// The field class passes [ 'data' => $field_data, 'addresses' => $decoded_value ].
+$addresses = isset( $data['addresses'] ) && is_array( $data['addresses'] ) ? $data['addresses'] : array();
+$data      = isset( $data['data'] ) && is_array( $data['data'] ) ? $data['data'] : array();
 
 $is_label          = ! empty( $data['form_data']['is_label'] );
 $allow_field_label = ! empty( $data['allow_field_label'] );

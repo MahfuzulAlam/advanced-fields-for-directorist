@@ -35,12 +35,12 @@ class Advanced_Fields_Shortcode
                 ],
                 'label' => [
                     'type'  => 'text',
-                    'label' => __('Label', 'directorist'),
+                    'label' => __('Label', 'directorist-advanced-fields'),
                     'value' => 'Shortcode',
                 ],
                 'field_key' => apply_filters('directorist_custom_field_meta_key_field_args', [
                     'type'  => 'hidden',
-                    'label' => __('Key', 'directorist'),
+                    'label' => __('Key', 'directorist-advanced-fields'),
                     'value' => 'custom-shortcode',
                     'rules' => [
                         'unique' => true,
@@ -49,27 +49,27 @@ class Advanced_Fields_Shortcode
                 ]),
                 'class' => [
                     'type'  => 'text',
-                    'label' => __('Class', 'directorist'),
+                    'label' => __('Class', 'directorist-advanced-fields'),
                     'value' => 'directorist-field-shortcode',
                 ],
                 'placeholder' => [
                     'type'  => 'text',
-                    'label' => __('Placeholder', 'directorist'),
+                    'label' => __('Placeholder', 'directorist-advanced-fields'),
                     'value' => '',
                 ],
                 'description' => [
                     'type'  => 'text',
-                    'label' => __('Description', 'directorist'),
+                    'label' => __('Description', 'directorist-advanced-fields'),
                     'value' => '',
                 ],
                 'required' => [
                     'type'  => 'toggle',
-                    'label'  => __('Required', 'directorist'),
+                    'label'  => __('Required', 'directorist-advanced-fields'),
                     'value' => false,
                 ],
                 'only_for_admin' => [
                     'type'  => 'toggle',
-                    'label'  => __('Only For Admin Use', 'directorist'),
+                    'label'  => __('Only For Admin Use', 'directorist-advanced-fields'),
                     'value' => false,
                 ],
                 'conditional_logic' => Helper::get_conditional_logic_field(),

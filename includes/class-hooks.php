@@ -76,6 +76,10 @@ class Daf_Hooks {
                 case 'vimeo-video':
                     $meta_data[ $meta_key ] = esc_url_raw( (string) $raw_value );
                     break;
+
+                case 'featured-checkbox':
+                    $meta_data[ $meta_key ] = $this->sanitize_featured_checkbox_value( $raw_value, $field );
+                    break;
             }
         }
 
@@ -160,6 +164,41 @@ class Daf_Hooks {
         }
 
         return preg_match( '/^-?\d+(?:\.\d+)?$/', $value ) ? $value : '';
+    }
+
+    private function sanitize_featured_checkbox_value( $value, $field ) {
+        if ( is_array( $value ) ) {
+            $values = $value;
+        } else {
+            $values = '' !== trim( (string) $value ) ? array( $value ) : array();
+        }
+
+        $values = array_map(
+            static function ( $item ) {
+                return sanitize_text_field( (string) $item );
+            },
+            $values
+        );
+        $values = array_values( array_filter( $values, 'strlen' ) );
+
+        $allowed = array();
+        if ( ! empty( $field['options'] ) && is_array( $field['options'] ) ) {
+            foreach ( $field['options'] as $option ) {
+                if ( ! isset( $option['option_value'] ) ) {
+                    continue;
+                }
+
+                $allowed[] = sanitize_text_field( (string) $option['option_value'] );
+            }
+
+            $allowed = array_filter( $allowed, 'strlen' );
+        }
+
+        if ( ! empty( $allowed ) ) {
+            $values = array_values( array_intersect( $values, $allowed ) );
+        }
+
+        return $values;
     }
 
     private function sanitize_repeater_value( $value, $field ) {

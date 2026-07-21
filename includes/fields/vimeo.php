@@ -35,7 +35,7 @@ class Advanced_Fields_Vimeo
                 ],
                 'field_key' => apply_filters('directorist_custom_field_meta_key_field_args', [
                     'type'  => 'hidden',
-                    'label' => __('Key', 'directorist'),
+                    'label' => __('Key', 'directorist-advanced-fields'),
                     'value' => 'custom-vimeo',
                     'rules' => [
                         'unique' => true,
@@ -44,27 +44,27 @@ class Advanced_Fields_Vimeo
                 ]),
                 'class' => [
                     'type'  => 'text',
-                    'label' => __('Class', 'directorist'),
-                    'value' => 'directorist-field-shortcode',
+                    'label' => __('Class', 'directorist-advanced-fields'),
+                    'value' => 'directorist-field-vimeo',
                 ],
                 'label' => [
                     'type'  => 'text',
-                    'label' => __('Label', 'directorist'),
+                    'label' => __('Label', 'directorist-advanced-fields'),
                     'value' => 'Vimeo Video',
                 ],
                 'placeholder' => [
                     'type'  => 'text',
-                    'label' => __('Placeholder', 'directorist'),
+                    'label' => __('Placeholder', 'directorist-advanced-fields'),
                     'value' => 'Only Vimeo URLs.',
                 ],
                 'required' => [
                     'type'  => 'toggle',
-                    'label'  => __('Required', 'directorist'),
+                    'label'  => __('Required', 'directorist-advanced-fields'),
                     'value' => false,
                 ],
                 'only_for_admin' => [
                     'type'  => 'toggle',
-                    'label'  => __('Only For Admin Use', 'directorist'),
+                    'label'  => __('Only For Admin Use', 'directorist-advanced-fields'),
                     'value' => false,
                 ],
                 'conditional_logic' => Helper::get_conditional_logic_field(),

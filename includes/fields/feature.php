@@ -35,12 +35,12 @@ class Advanced_Fields_Feature
                 ],
                 'label' => [
                     'type'  => 'text',
-                    'label' => __('Label', 'directorist'),
+                    'label' => __('Label', 'directorist-advanced-fields'),
                     'value' => 'Feature',
                 ],
                 'field_key' => apply_filters('directorist_custom_field_meta_key_field_args', [
                     'type'  => 'hidden',
-                    'label' => __('Key', 'directorist'),
+                    'label' => __('Key', 'directorist-advanced-fields'),
                     'value' => 'custom-feature',
                     'rules' => [
                         'unique' => true,
@@ -49,54 +49,54 @@ class Advanced_Fields_Feature
                 ]),
                 'options' => [
                     'type' => 'multi-fields',
-                    'label' => __('Options', 'directorist'),
-                    'add-new-button-label' => __('Add Option', 'directorist'),
+                    'label' => __('Options', 'directorist-advanced-fields'),
+                    'add-new-button-label' => __('Add Option', 'directorist-advanced-fields'),
                     'options' => [
                         'option_value' => [
                             'type'  => 'text',
-                            'label' => __('Option Value', 'directorist'),
+                            'label' => __('Option Value', 'directorist-advanced-fields'),
                             'value' => '',
                         ],
                         'option_label' => [
                             'type'  => 'text',
-                            'label' => __('Option Label', 'directorist'),
+                            'label' => __('Option Label', 'directorist-advanced-fields'),
                             'value' => '',
                         ],
                         'option_icon' => [
                             'type'  => 'text',
-                            'label' => __('Option Icon', 'directorist'),
+                            'label' => __('Option Icon', 'directorist-advanced-fields'),
                             'value' => '',
                         ],
                         'option_class' => [
                             'type'  => 'text',
-                            'label' => __('Option Class', 'directorist'),
+                            'label' => __('Option Class', 'directorist-advanced-fields'),
                             'value' => '',
                         ],
                     ]
                 ],
                 'class' => [
                     'type'  => 'text',
-                    'label' => __('Class', 'directorist'),
+                    'label' => __('Class', 'directorist-advanced-fields'),
                     'value' => 'directorist-field-feature',
                 ],
                 'placeholder' => [
                     'type'  => 'text',
-                    'label' => __('Placeholder', 'directorist'),
+                    'label' => __('Placeholder', 'directorist-advanced-fields'),
                     'value' => '',
                 ],
                 'description' => [
                     'type'  => 'text',
-                    'label' => __('Description', 'directorist'),
+                    'label' => __('Description', 'directorist-advanced-fields'),
                     'value' => '',
                 ],
                 'required' => [
                     'type'  => 'toggle',
-                    'label'  => __('Required', 'directorist'),
+                    'label'  => __('Required', 'directorist-advanced-fields'),
                     'value' => false,
                 ],
                 'only_for_admin' => [
                     'type'  => 'toggle',
-                    'label'  => __('Only For Admin Use', 'directorist'),
+                    'label'  => __('Only For Admin Use', 'directorist-advanced-fields'),
                     'value' => false,
                 ],
                 'conditional_logic' => Helper::get_conditional_logic_field(),

@@ -35,7 +35,7 @@ class Advanced_Fields_Repeater
                 ],
                 'label' => [
                     'type'  => 'text',
-                    'label' => __('Label', 'directorist'),
+                    'label' => __('Label', 'directorist-advanced-fields'),
                     'value' => 'Repeater',
                 ],
                 'show_label' => [
@@ -45,7 +45,7 @@ class Advanced_Fields_Repeater
                 ],
                 'field_key' => apply_filters('directorist_custom_field_meta_key_field_args', [
                     'type'  => 'hidden',
-                    'label' => __('Key', 'directorist'),
+                    'label' => __('Key', 'directorist-advanced-fields'),
                     'value' => 'custom-repeater',
                     'rules' => [
                         'unique' => true,
@@ -54,8 +54,8 @@ class Advanced_Fields_Repeater
                 ]),
                 'options' => [
                     'type' => 'multi-fields',
-                    'label' => __('Fields', 'directorist'),
-                    'add-new-button-label' => __('Add Field', 'directorist'),
+                    'label' => __('Fields', 'directorist-advanced-fields'),
+                    'add-new-button-label' => __('Add Field', 'directorist-advanced-fields'),
                     'options' => [
                         'field_type' => [
                             'type'  => 'select',
@@ -63,47 +63,47 @@ class Advanced_Fields_Repeater
                             'value' => 'text',
                             'options' => [
                                 [
-                                    'label' => __('Text', 'directorist'),
+                                    'label' => __('Text', 'directorist-advanced-fields'),
                                     'value' => 'text',
                                 ],
                                 [
-                                    'label' => __('Textarea', 'directorist'),
+                                    'label' => __('Textarea', 'directorist-advanced-fields'),
                                     'value' => 'textarea',
                                 ],
                                 [
-                                    'label' => __('Email', 'directorist'),
+                                    'label' => __('Email', 'directorist-advanced-fields'),
                                     'value' => 'email',
                                 ],
                                 [
-                                    'label' => __('Date', 'directorist'),
+                                    'label' => __('Date', 'directorist-advanced-fields'),
                                     'value' => 'date',
                                 ],
                                 [
-                                    'label' => __('Time', 'directorist'),
+                                    'label' => __('Time', 'directorist-advanced-fields'),
                                     'value' => 'time',
                                 ],
                                 [
-                                    'label' => __('Color', 'directorist'),
+                                    'label' => __('Color', 'directorist-advanced-fields'),
                                     'value' => 'color',
                                 ],
                                 [
-                                    'label' => __('Number', 'directorist'),
+                                    'label' => __('Number', 'directorist-advanced-fields'),
                                     'value' => 'number',
                                 ],
                                 [
-                                    'label' => __('URL', 'directorist'),
+                                    'label' => __('URL', 'directorist-advanced-fields'),
                                     'value' => 'url',
                                 ],
                                 [
-                                    'label' => __('Radio', 'directorist'),
+                                    'label' => __('Radio', 'directorist-advanced-fields'),
                                     'value' => 'radio',
                                 ],
                                 [
-                                    'label' => __('Select', 'directorist'),
+                                    'label' => __('Select', 'directorist-advanced-fields'),
                                     'value' => 'select',
                                 ],
                                 [
-                                    'label' => __('Checkbox', 'directorist'),
+                                    'label' => __('Checkbox', 'directorist-advanced-fields'),
                                     'value' => 'checkbox',
                                 ],
                             ],
@@ -124,12 +124,12 @@ class Advanced_Fields_Repeater
                         ],
                         'field_placeholder' => [
                             'type'  => 'text',
-                            'label' => __('Field Placeholder', 'directorist'),
+                            'label' => __('Field Placeholder', 'directorist-advanced-fields'),
                             'value' => '',
                         ],
                         'field_description' => [
                             'type'  => 'text',
-                            'label' => __('Field Description', 'directorist'),
+                            'label' => __('Field Description', 'directorist-advanced-fields'),
                             'value' => '',
                         ],
                         'field_class' => [
@@ -148,18 +148,18 @@ class Advanced_Fields_Repeater
                                     ['key' => 'value', 'compare' => '=', 'value' => 'radio'],
                                 ],
                             ],
-                            'label' => __('Options', 'directorist'),
-                            'add-new-button-label' => __('Add Option', 'directorist'),
+                            'label' => __('Options', 'directorist-advanced-fields'),
+                            'add-new-button-label' => __('Add Option', 'directorist-advanced-fields'),
                             'value' => '',
                             'options' => [
                                 'option_value' => [
                                     'type'  => 'text',
-                                    'label' => __('Option Value', 'directorist'),
+                                    'label' => __('Option Value', 'directorist-advanced-fields'),
                                     'value' => '',
                                 ],
                                 'option_label' => [
                                     'type'  => 'text',
-                                    'label' => __('Option Label', 'directorist'),
+                                    'label' => __('Option Label', 'directorist-advanced-fields'),
                                     'value' => '',
                                 ],
                             ],
@@ -168,22 +168,22 @@ class Advanced_Fields_Repeater
                 ],
                 'class' => [
                     'type'  => 'text',
-                    'label' => __('Class', 'directorist'),
+                    'label' => __('Class', 'directorist-advanced-fields'),
                     'value' => 'directorist-field-repeater',
                 ],
                 'description' => [
                     'type'  => 'text',
-                    'label' => __('Description', 'directorist'),
+                    'label' => __('Description', 'directorist-advanced-fields'),
                     'value' => '',
                 ],
                 'required' => [
                     'type'  => 'toggle',
-                    'label'  => __('Required', 'directorist'),
+                    'label'  => __('Required', 'directorist-advanced-fields'),
                     'value' => false,
                 ],
                 'only_for_admin' => [
                     'type'  => 'toggle',
-                    'label'  => __('Only For Admin Use', 'directorist'),
+                    'label'  => __('Only For Admin Use', 'directorist-advanced-fields'),
                     'value' => false,
                 ],
                 'conditional_logic' => Helper::get_conditional_logic_field(),

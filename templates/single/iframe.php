@@ -27,6 +27,6 @@ if ( '' === trim( $iframe_value ) ) {
         <span class="directorist-single-info__label--text"><?php echo esc_html($data['label']); ?></span>
     </div>
 
-    <div class="directorist-single-info__value"><?php echo $iframe_value; ?></div>
+    <div class="directorist-single-info__value"><?php echo $iframe_value; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Sanitized above via Helper::sanitize_iframe_html() (wp_kses allowlist). ?></div>
 
 </div>

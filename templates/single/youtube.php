@@ -1,16 +1,24 @@
 <?php
 
 /**
+ * YouTube video field — single listing template.
+ *
  * @author  mahfuz
- * @since   6.7
- * @version 6.7
+ * @since   1.0
+ * @version 2.2.0
  */
 
 if (!defined('ABSPATH')) exit;
 
+use Directorist_Advanced_Fields\Helper;
+
 if( ! $data['value'] ) return;
 
-use Directorist_Advanced_Fields\Helper;
+$embed_url = Helper::parse_youtube( $data['value'] );
+
+if ( '' === $embed_url ) {
+    return;
+}
 
 ?>
 
@@ -22,7 +30,7 @@ use Directorist_Advanced_Fields\Helper;
     </div>
 
     <div class="directorist-single-info__value">
-        <iframe class="directorist-embaded-video embed-responsive-item" src="<?php echo esc_attr( Helper::parse_youtube( $data['value'] ) ); ?>" allowfullscreen></iframe>
+        <iframe class="directorist-embaded-video embed-responsive-item" src="<?php echo esc_url( $embed_url ); ?>" title="<?php echo esc_attr( $data['label'] ); ?>" loading="lazy" allowfullscreen></iframe>
     </div>
 
 </div>

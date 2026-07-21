@@ -49,11 +49,6 @@ class Advanced_Fields_Address_List
                         'label' => __('Placeholder', 'directorist-advanced-fields'),
                         'value' => __('Select a place from google', 'directorist-advanced-fields'),
                     ],
-                    // 'required' => [
-                    //     'type'  => 'toggle',
-                    //     'label' => __('Required', 'directorist-advanced-fields'),
-                    //     'value' => false,
-                    // ],
                     'limit' => [
                         'type'  => 'number',
                         'label' => __('Limit', 'directorist-advanced-fields'),

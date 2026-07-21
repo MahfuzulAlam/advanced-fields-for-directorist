@@ -14,15 +14,20 @@ if (!defined('ABSPATH')) exit;
     <?php $listing_form->field_label_template( $data ); ?>
 
     <?php
+        // Editor IDs may only contain lowercase letters, digits, and underscores;
+        // textarea_name keeps the submitted field name identical to the field key.
+        $daf_editor_id = 'daf_' . preg_replace( '/[^a-z0-9_]/', '_', strtolower( (string) $data['field_key'] ) );
+
         wp_editor(
 			wp_kses_post( $data['value'] ),
-			$data['field_key'],
+			$daf_editor_id,
 			apply_filters(
 				'atbdp_add_listing_wp_editor_settings',
 				array(
 					'media_buttons' => false,
 					'quicktags'     => true,
 					'editor_height' => 200,
+					'textarea_name' => $data['field_key'],
 				)
 			)
 		);

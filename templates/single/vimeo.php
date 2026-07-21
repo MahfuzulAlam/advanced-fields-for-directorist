@@ -1,19 +1,27 @@
 <?php
 
 /**
+ * Vimeo video field — single listing template.
+ *
  * @author  mahfuz
  * @since   1.0
- * @version 1.0
+ * @version 2.2.0
  */
 
 if (!defined('ABSPATH')) exit;
 
-if( ! $data['value'] ) return;
-
 use Directorist_Advanced_Fields\Helper;
 
+if( ! $data['value'] ) return;
+
+$embed_url = Helper::parse_vimeo( $data['value'] );
+
+if ( '' === $embed_url ) {
+    return;
+}
+
 ?>
-<div class="directorist-single-info directorist-single-info-vimeo  <?php echo esc_attr( $data['form_data']['class'] ); ?>">
+<div class="directorist-single-info directorist-single-info-vimeo <?php echo esc_attr( $data['form_data']['class'] ); ?>">
 
     <div class="directorist-single-info__label">
         <span class="directorist-single-info__label-icon"><?php directorist_icon($data['icon']); ?></span>
@@ -21,7 +29,7 @@ use Directorist_Advanced_Fields\Helper;
     </div>
 
     <div class="directorist-single-info__value">
-
-        <iframe class="directorist-embaded-video embed-responsive-item" src="<?php echo esc_attr(Helper::parse_vimeo($data['value'])); ?>" allowfullscreen></iframe>
+        <iframe class="directorist-embaded-video embed-responsive-item" src="<?php echo esc_url( $embed_url ); ?>" title="<?php echo esc_attr( $data['label'] ); ?>" loading="lazy" allowfullscreen></iframe>
     </div>
+
 </div>

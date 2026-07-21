@@ -27,6 +27,6 @@ if ( '' === trim( $shortcode_output ) ) {
         <span class="directorist-single-info__label--text"><?php echo esc_html($data['label']); ?></span>
     </div>
 
-    <div class="directorist-single-info__value"><?php echo $shortcode_output; ?></div>
+    <div class="directorist-single-info__value"><?php echo $shortcode_output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output of do_shortcode() restricted to the daf_allowed_shortcode_tags allowlist. ?></div>
 
 </div>

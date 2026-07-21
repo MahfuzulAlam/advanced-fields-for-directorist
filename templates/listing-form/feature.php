@@ -31,7 +31,7 @@ $conditional_logic_attr = \Directorist\Directorist_Listing_Form::instance()->get
 
         <?php endforeach; ?>
 
-        <a href="#" class="directorist-custom-field-btn-more"><?php esc_html_e('See More', 'directorist'); ?></a>
+        <a href="#" class="directorist-custom-field-btn-more"><?php esc_html_e('See More', 'directorist-advanced-fields'); ?></a>
 
     <?php endif; ?>
     <?php \Directorist\Directorist_Listing_Form::instance()->field_description_template($data); ?>
