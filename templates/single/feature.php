@@ -27,7 +27,7 @@ $widget_label = isset($data['label']) ? $data['label'] : '';
 
 <div class="directorist-single-info directorist-single-info__feature__list directorist-single-info__list">
 
-    <?php if ($widget_label) : ?>
+    <?php if ($widget_label && (!isset($data['label_enabled']) || !empty($data['label_enabled']))) : ?>
         <div class="directorist-single-info__label">
             <span class="directorist-single-info__label-icon"><?php directorist_icon($data['icon']); ?></span>
             <span class="directorist-single-info__label--text"><?php echo esc_html($widget_label); ?></span>

@@ -38,6 +38,11 @@ class Advanced_Fields_Featured_Checkbox
                     'label' => __('Label', 'directorist-advanced-fields'),
                     'value' => 'Featured Checkbox',
                 ],
+                'show_label' => [
+                    'type'  => 'toggle',
+                    'label' => __('Show Label', 'directorist-advanced-fields'),
+                    'value' => true,
+                ],
                 'field_key' => apply_filters('directorist_custom_field_meta_key_field_args', [
                     'type'  => 'hidden',
                     'label' => __('Key', 'directorist-advanced-fields'),

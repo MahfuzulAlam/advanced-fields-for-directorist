@@ -52,6 +52,11 @@ class Advanced_Fields_WP_Editor
                     'label' => __('Label', 'directorist-advanced-fields'),
                     'value' => 'WP Editor',
                 ],
+                'show_label' => [
+                    'type'  => 'toggle',
+                    'label' => __('Show Label', 'directorist-advanced-fields'),
+                    'value' => true,
+                ],
                 'required' => [
                     'type'  => 'toggle',
                     'label'  => __('Required', 'directorist-advanced-fields'),
@@ -76,6 +81,11 @@ class Advanced_Fields_WP_Editor
                     'type'  => 'icon',
                     'label' => 'Icon',
                     'value' => 'las la-align-left',
+                ],
+                'label_enabled' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Label', 'directorist-advanced-fields'),
+                    'value' => true,
                 ],
             ]
         ];

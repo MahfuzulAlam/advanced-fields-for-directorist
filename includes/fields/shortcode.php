@@ -38,6 +38,11 @@ class Advanced_Fields_Shortcode
                     'label' => __('Label', 'directorist-advanced-fields'),
                     'value' => 'Shortcode',
                 ],
+                'show_label' => [
+                    'type'  => 'toggle',
+                    'label' => __('Show Label', 'directorist-advanced-fields'),
+                    'value' => true,
+                ],
                 'field_key' => apply_filters('directorist_custom_field_meta_key_field_args', [
                     'type'  => 'hidden',
                     'label' => __('Key', 'directorist-advanced-fields'),
@@ -87,6 +92,11 @@ class Advanced_Fields_Shortcode
                     'type'  => 'icon',
                     'label' => 'Icon',
                     'value' => 'las la-code',
+                ],
+                'label_enabled' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Label', 'directorist-advanced-fields'),
+                    'value' => true,
                 ],
             ]
         ];

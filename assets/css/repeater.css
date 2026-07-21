@@ -123,22 +123,14 @@
     border-top: 0;
     padding: 14px;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 12px 16px;
+    flex-direction: column;
+    gap: 14px;
 }
 
 .directorist-repeater .repeater-fieldset-body .directorist-repeater-field {
     margin-bottom: 0;
     min-width: 0;
-    flex: 1 1 220px;
-}
-
-/* Wide sub-fields take the full row */
-.directorist-repeater .directorist-repeater-field--textarea,
-.directorist-repeater .directorist-repeater-field--checkbox,
-.directorist-repeater .directorist-repeater-field--radio {
-    flex-basis: 100%;
+    width: 100%;
 }
 
 .directorist-repeater .directorist-repeater-field-label {
@@ -331,7 +323,7 @@
    ========================================================================== */
 
 @media (max-width: 575px) {
-    .directorist-repeater .repeater-fieldset-body {
+    .directorist-single-info-repeater .directorist-repeater-item-content {
         flex-direction: column;
     }
 }

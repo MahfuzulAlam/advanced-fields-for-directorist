@@ -27,9 +27,11 @@ $helper_text     = $has_label
     data-has-label="<?php echo $has_label ? '1' : '0'; ?>"
 >
     <div class="directorist-form-multi-address-field__header">
-        <label class="directorist-form-label" for="<?php echo esc_attr( $field_id_prefix . '-0-address' ); ?>">
-            <?php echo esc_html( $data['label'] ); ?>
-        </label>
+        <?php if ( ! isset( $data['show_label'] ) || ! empty( $data['show_label'] ) ) : ?>
+            <label class="directorist-form-label" for="<?php echo esc_attr( $field_id_prefix . '-0-address' ); ?>">
+                <?php echo esc_html( $data['label'] ); ?>
+            </label>
+        <?php endif; ?>
         <p class="directorist-form-multi-address-field__hint"><?php echo esc_html( $helper_text ); ?></p>
     </div>
 

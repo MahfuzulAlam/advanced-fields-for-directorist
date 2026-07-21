@@ -22,10 +22,12 @@ if ( '' === trim( $iframe_value ) ) {
 
 <div class="directorist-single-info directorist-single-info-iframe  <?php echo esc_attr( $data['form_data']['class'] ); ?>">
 
-    <div class="directorist-single-info__label">
-        <span class="directorist-single-info__label-icon"><?php directorist_icon($data['icon']); ?></span>
-        <span class="directorist-single-info__label--text"><?php echo esc_html($data['label']); ?></span>
-    </div>
+    <?php if (!isset($data['label_enabled']) || !empty($data['label_enabled'])) : ?>
+        <div class="directorist-single-info__label">
+            <span class="directorist-single-info__label-icon"><?php directorist_icon($data['icon']); ?></span>
+            <span class="directorist-single-info__label--text"><?php echo esc_html($data['label']); ?></span>
+        </div>
+    <?php endif; ?>
 
     <div class="directorist-single-info__value"><?php echo $iframe_value; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Sanitized above via Helper::sanitize_iframe_html() (wp_kses allowlist). ?></div>
 

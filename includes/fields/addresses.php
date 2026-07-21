@@ -44,6 +44,11 @@ class Advanced_Fields_Address_List
                         'label' => __('Label', 'directorist-advanced-fields'),
                         'value' => 'Address List',
                     ],
+                    'show_label' => [
+                        'type'  => 'toggle',
+                        'label' => __('Show Label', 'directorist-advanced-fields'),
+                        'value' => true,
+                    ],
                     'placeholder' => [
                         'type'  => 'text',
                         'label' => __('Placeholder', 'directorist-advanced-fields'),

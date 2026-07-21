@@ -52,6 +52,11 @@ class Advanced_Fields_Vimeo
                     'label' => __('Label', 'directorist-advanced-fields'),
                     'value' => 'Vimeo Video',
                 ],
+                'show_label' => [
+                    'type'  => 'toggle',
+                    'label' => __('Show Label', 'directorist-advanced-fields'),
+                    'value' => true,
+                ],
                 'placeholder' => [
                     'type'  => 'text',
                     'label' => __('Placeholder', 'directorist-advanced-fields'),
@@ -81,6 +86,11 @@ class Advanced_Fields_Vimeo
                     'type'  => 'icon',
                     'label' => 'Icon',
                     'value' => 'lab la-vimeo',
+                ],
+                'label_enabled' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Label', 'directorist-advanced-fields'),
+                    'value' => true,
                 ],
             ]
         ];

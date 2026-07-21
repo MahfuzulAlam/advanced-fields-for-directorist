@@ -15,7 +15,9 @@ $conditional_logic_attr = \Directorist\Directorist_Listing_Form::instance()->get
 
 <div class="directorist-form-group directorist-custom-field-checkbox directorist-feature <?php echo esc_attr($data['class']) ?>" <?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
-    <?php \Directorist\Directorist_Listing_Form::instance()->field_label_template($data); ?>
+    <?php if (!isset($data['show_label']) || !empty($data['show_label'])) : ?>
+        <?php \Directorist\Directorist_Listing_Form::instance()->field_label_template($data); ?>
+    <?php endif; ?>
     <?php if (!empty($data['options'])) : ?>
 
         <?php foreach ($data['options'] as $option) : ?>

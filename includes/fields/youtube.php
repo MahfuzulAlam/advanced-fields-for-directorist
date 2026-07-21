@@ -52,6 +52,11 @@ class Advanced_Fields_Youtube
                     'label' => __('Label', 'directorist-advanced-fields'),
                     'value' => 'Youtube Video',
                 ],
+                'show_label' => [
+                    'type'  => 'toggle',
+                    'label' => __('Show Label', 'directorist-advanced-fields'),
+                    'value' => true,
+                ],
                 'placeholder' => [
                     'type'  => 'text',
                     'label' => __('Placeholder', 'directorist-advanced-fields'),
@@ -81,6 +86,11 @@ class Advanced_Fields_Youtube
                     'type'  => 'icon',
                     'label' => 'Icon',
                     'value' => 'lab la-youtube',
+                ],
+                'label_enabled' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Label', 'directorist-advanced-fields'),
+                    'value' => true,
                 ],
             ]
         ];

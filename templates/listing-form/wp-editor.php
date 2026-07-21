@@ -11,7 +11,9 @@ if (!defined('ABSPATH')) exit;
 
 <div class="directorist-form-group directorist-form-video-field directorist-form-wp-editor-field <?php echo esc_attr( $data[ 'class' ] ); ?>" <?php echo $conditional_logic_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped in get_conditional_logic_attributes() ?>>
 
-    <?php $listing_form->field_label_template( $data ); ?>
+    <?php if (!isset($data['show_label']) || !empty($data['show_label'])) : ?>
+        <?php $listing_form->field_label_template( $data ); ?>
+    <?php endif; ?>
 
     <?php
         // Editor IDs may only contain lowercase letters, digits, and underscores;
