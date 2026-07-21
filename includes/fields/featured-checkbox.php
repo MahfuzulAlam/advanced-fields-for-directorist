@@ -110,6 +110,11 @@ class Advanced_Fields_Featured_Checkbox
                     'label' => 'Icon',
                     'value' => 'las la-check-square',
                 ],
+                'item_icon' => [
+                    'type'  => 'icon',
+                    'label' => __('Item Icon', 'directorist-advanced-fields'),
+                    'value' => 'las la-check-circle',
+                ],
                 'label_enabled' => [
                     'type'  => 'toggle',
                     'label' => __('Display Label', 'directorist-advanced-fields'),

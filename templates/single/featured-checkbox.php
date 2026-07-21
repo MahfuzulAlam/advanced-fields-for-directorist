@@ -31,6 +31,11 @@ if (! empty($options) ) {
 $widget_label    = isset($data['label']) ? $data['label'] : '';
 $label_enabled   = isset($data['label_enabled']) ? $data['label_enabled'] : true;
 
+// Item icon from the single-listing settings; fall back to the default when empty.
+$item_icon = ( isset($data['item_icon']) && '' !== trim((string) $data['item_icon']) )
+    ? sanitize_text_field((string) $data['item_icon'])
+    : 'las la-check-circle';
+
 ?>
 
 <div class="directorist-single-info directorist-single-info-featured-checkbox
@@ -52,7 +57,7 @@ $label_enabled   = isset($data['label_enabled']) ? $data['label_enabled'] : true
                         : $value;
                 ?>
                 <li class="directorist-featured-checkbox-item">
-                    <i class="las la-check-circle"></i>
+                    <i class="<?php echo esc_attr( $item_icon ); ?>"></i>
                     <span class="directorist-featured-checkbox-item-label">
                         <?php echo esc_html($label); ?>
                     </span>
