@@ -258,7 +258,7 @@
 
 .directorist-single-info-repeater .directorist-repeater-field-display {
     margin-bottom: 0;
-    min-width: 0;
+    min-width: 120px;
 }
 
 /* Long-form values take the full row */
