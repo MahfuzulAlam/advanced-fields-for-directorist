@@ -200,6 +200,7 @@
     gap: 14px;
     margin: 0;
     padding: 0;
+    justify-items: start; /* cards hug their content instead of stretching */
 }
 
 .directorist-single-info-repeater .directorist-repeater-item {
@@ -208,6 +209,9 @@
     background: #ffffff;
     padding: 16px;
     box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+    width: fit-content;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .directorist-single-info-repeater .directorist-repeater-item-header {
@@ -242,9 +246,9 @@
 }
 
 .directorist-single-info-repeater .directorist-repeater-item-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 28px;
 }
 
 .directorist-single-info-repeater .directorist-repeater-field-display {
@@ -255,7 +259,7 @@
 /* Long-form values take the full row */
 .directorist-single-info-repeater .directorist-repeater-field-display--textarea,
 .directorist-single-info-repeater .directorist-repeater-field-display--checkbox {
-    grid-column: 1 / -1;
+    flex-basis: 100%;
 }
 
 .directorist-single-info-repeater .directorist-repeater-field-label {
@@ -322,8 +326,7 @@
    ========================================================================== */
 
 @media (max-width: 575px) {
-    .directorist-repeater .repeater-fieldset-body,
-    .directorist-single-info-repeater .directorist-repeater-item-content {
+    .directorist-repeater .repeater-fieldset-body {
         grid-template-columns: 1fr;
     }
 }
