@@ -223,7 +223,7 @@ class Helper
                 break;
                 
             case 'number':
-                echo '<input type="number" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
+                echo '<input type="number" step="any" inputmode="decimal" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
                 break;
                 
             case 'date':

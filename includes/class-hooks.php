@@ -178,6 +178,15 @@ class Daf_Hooks {
 
             $sanitized_item = array();
 
+            // Preserve the user-defined item title (not a configured sub-field).
+            if ( isset( $item['daf_title'] ) && ! is_array( $item['daf_title'] ) ) {
+                $item_title = sanitize_text_field( (string) $item['daf_title'] );
+
+                if ( '' !== $item_title ) {
+                    $sanitized_item['daf_title'] = $item_title;
+                }
+            }
+
             foreach ( $sub_fields as $sub_field ) {
                 $sub_field_key = isset( $sub_field['field_key'] ) ? (string) $sub_field['field_key'] : '';
 

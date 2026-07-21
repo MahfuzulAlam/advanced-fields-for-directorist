@@ -81,7 +81,8 @@
 				var label_text = $repeater.find( '.fieldset-title' ).first().data( 'label' ) || '';
 
 				if ( ! label_text ) {
-					var title_text = $.trim( $repeater.find( '.fieldset-title' ).first().text() );
+					var $first_title = $repeater.find( '.fieldset-title' ).first();
+					var title_text = $.trim( $first_title.is( 'input' ) ? ( $first_title.attr( 'placeholder' ) || '' ) : $first_title.text() );
 					label_text = title_text ? title_text.replace( /\s*#\d+\s*$/, '' ) : '';
 				}
 
@@ -129,6 +130,34 @@
 		init_repeater_item( $new_item );
 		reindex_repeater_items( $repeater );
 		update_repeater_hidden_input( $repeater );
+
+		var first_input = $new_item.find( '.repeater-fieldset-body' ).find( 'input, select, textarea' ).get( 0 );
+		if ( first_input ) {
+			first_input.focus();
+		}
+	}
+
+	function repeater_item_has_value( $item ) {
+		var has_value = false;
+
+		$item.find( 'input, select, textarea' ).not( '.directorist-repeater-hidden-input' ).each( function() {
+			var $field = $( this );
+
+			if ( $field.is( ':checkbox' ) || $field.is( ':radio' ) ) {
+				if ( $field.is( ':checked' ) ) {
+					has_value = true;
+					return false;
+				}
+				return;
+			}
+
+			if ( $.trim( $field.val() || '' ) ) {
+				has_value = true;
+				return false;
+			}
+		} );
+
+		return has_value;
 	}
 
 	function remove_repeater_item( $repeater, $button ) {
@@ -136,6 +165,12 @@
 		var $item = $button.closest( '.repeater-fieldset' );
 
 		if ( ! $item.length || ! $container.length ) {
+			return;
+		}
+
+		var strings = window.repeaterFieldOptions && repeaterFieldOptions.strings ? repeaterFieldOptions.strings : {};
+
+		if ( strings.confirm_remove && repeater_item_has_value( $item ) && ! window.confirm( strings.confirm_remove ) ) {
 			return;
 		}
 
@@ -162,7 +197,14 @@
 			$item.attr( 'data-id', index + 1 );
 
 			if ( label_text ) {
-				$item.find( '.fieldset-title' ).text( label_text + ' #' + ( index + 1 ) );
+				var $title = $item.find( '.fieldset-title' );
+
+				if ( $title.is( 'input' ) ) {
+					// Editable title: refresh the fallback placeholder, keep the user's value.
+					$title.attr( 'placeholder', label_text + ' #' + ( index + 1 ) );
+				} else {
+					$title.text( label_text + ' #' + ( index + 1 ) );
+				}
 			}
 
 			$item.find( 'input, select, textarea' ).each( function() {
@@ -187,7 +229,16 @@
 				if ( id ) {
 					var matched_id = id.match( /^(.*)_\d+(_.*)?$/ );
 					if ( matched_id ) {
-						$field.attr( 'id', matched_id[1] + '_' + index + ( matched_id[2] || '' ) );
+						var new_id = matched_id[1] + '_' + index + ( matched_id[2] || '' );
+
+						if ( new_id !== id ) {
+							// Keep associated labels pointing at the right input.
+							$item.find( 'label' ).filter( function() {
+								return $( this ).attr( 'for' ) === id;
+							} ).attr( 'for', new_id );
+
+							$field.attr( 'id', new_id );
+						}
 					}
 				}
 			} );
@@ -229,7 +280,7 @@
 			var placeholder = $select.attr( 'placeholder' ) || '';
 
 			$select.empty();
-			$select.append( '<option value="">' + placeholder + '</option>' );
+			$select.append( $( '<option>', { value: '', text: placeholder } ) );
 
 			options.forEach( function( option ) {
 				if ( ! option || 'undefined' === typeof option.option_value ) {
@@ -238,7 +289,7 @@
 
 				var option_value = option.option_value;
 				var option_label = option.option_label ? option.option_label : option_value;
-				$select.append( '<option value="' + option_value + '">' + option_label + '</option>' );
+				$select.append( $( '<option>', { value: option_value, text: option_label } ) );
 			} );
 
 			if ( selected_value ) {
