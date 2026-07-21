@@ -1,7 +1,7 @@
 # EXTENSION-ARCHITECTURE.md — Directorist – Advanced Fields
 
 > Generated from source analysis of the plugin at `wp-content/plugins/directorist-advanced-fields/`
-> (v2.2.0, last updated 2026-07-21 after the repeater merge and field quality pass).
+> (v2.3.0, last updated 2026-07-22 after the repeater merge, field quality pass, and label toggles).
 > Everything below is derived from the actual files. Statements about Directorist *internals* that
 > cannot be seen from this codebase are explicitly marked **[ASSUMPTION]**.
 
@@ -17,7 +17,7 @@ multi-location radius search that understands the Address List field.
 | Item | Value | Source |
 |---|---|---|
 | Plugin name | `Directorist - Advanced Fields` | `directorist-advanced-fields.php` header |
-| Version | `2.2.0` (also `DIRECTORIST_ADVANCED_FIELDS_VERSION`) | header |
+| Version | `2.3.0` (also `DIRECTORIST_ADVANCED_FIELDS_VERSION`) | header |
 | Author | wpXplore | header |
 | Text domain | `directorist-advanced-fields` (now used consistently across all plugin strings) | header |
 | Required WP / PHP / Directorist versions | **Not declared** — no `Requires at least`, `Requires PHP`, or `Requires Plugins` headers exist | header (see Open questions) |
@@ -638,7 +638,7 @@ branch).
 8. **OpenStreetMap JS loads Leaflet from unpkg CDN at runtime** (`openstreet-map.js`) — an external
    dependency not registered through WordPress, invisible to asset tooling and blocked on locked-down
    sites.
-9. **Version drift**: the `get_asset_version()` fallback hardcodes `'2.2.0'` in addition to the
+9. **Version drift**: the `get_asset_version()` fallback hardcodes `'2.3.0'` in addition to the
    constant; keep in sync on release.
 10. **No uninstall/cleanup**: no `uninstall.php`; saved meta and builder config persist after removal
     (arguably correct, but undocumented).

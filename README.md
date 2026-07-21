@@ -2,7 +2,7 @@
 
 Directorist - Advanced Fields extends Directorist with advanced custom fields including repeater, address list, media, shortcode, iframe, and editor fields for directory type forms, listing submission, admin editing, and single listing display.
 
-- Version: `2.2.0`
+- Version: `2.3.0`
 - Plugin URI: https://wpxplore.com/tools/directorist-advanced-fields/
 - Author: `wpXplore`
 - Author URI: https://wpxplore.com/
@@ -100,6 +100,26 @@ Supported sub-field types:
 
 - WordPress
 - Directorist
+
+## Changelog
+
+### 2.3.0 — 2026-07-22
+
+- **New:** Repeater field enabled and shipped — build a repeatable group of sub-fields (text, textarea, email, date, time, color, number, URL, radio, select, checkbox) with add/remove rows.
+- **New:** Repeater rows have an editable per-row title that shows as the card heading on the single listing (falls back to "Label #N" when left blank).
+- **New:** Repeater number sub-fields accept decimal values (e.g. `4.63`).
+- **New:** "Show Label" (Add Listing form) and "Display Label" (single listing) toggles on every field, so labels can be hidden per field in either place.
+- **New:** Featured Checkbox has an "Item Icon" setting in the single-listing options; choose the icon shown before each item (defaults to a circled check when empty).
+- **Improved:** Single listing page now stacks each field's label above its content for all advanced fields.
+- **Improved:** Redesigned Repeater UI — card-style rows on the form, aligned cards on the single listing; repeater styles now load on single listing pages too.
+- **Improved:** Responsive 16:9 embeds for YouTube and Vimeo; video fields no longer render an empty frame when the URL can't be parsed.
+- **Security/Standards:** Featured Checkbox values are sanitized on save against the configured options; embed URLs are escaped; wp_editor uses a valid editor ID; text domains normalized to `directorist-advanced-fields`.
+- **Fixed:** Vimeo field default CSS class and the Shortcode single-listing wrapper class (previously copied from other fields).
+
+### 2.2.0
+
+- Address List field with multiple locations, optional labels, and Google Maps / OpenStreetMap display.
+- Multi-location radius search support.
 
 ## License
 

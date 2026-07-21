@@ -4,7 +4,7 @@
  * Featured checkbox field template.
  *
  * @author  Mahfuz
- * @version 2.1.0
+ * @version 2.3.0
  * @since   2.0.0
  */
 

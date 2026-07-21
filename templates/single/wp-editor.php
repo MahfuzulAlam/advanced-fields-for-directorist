@@ -3,7 +3,7 @@
 /**
  * @author  mahfuz
  * @since   6.7
- * @version 6.7
+ * @version 2.3.0
  */
 
 if (!defined('ABSPATH')) exit;

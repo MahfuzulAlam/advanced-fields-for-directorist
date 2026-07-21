@@ -1,6 +1,6 @@
 # Directorist – Advanced Fields — User Guide
 
-**Version 2.2.0** · An add-on for the Directorist directory plugin.
+**Version 2.3.0** · An add-on for the Directorist directory plugin.
 
 This guide is written for site owners using the WordPress admin. You do **not** need to know any code to use this plugin.
 
