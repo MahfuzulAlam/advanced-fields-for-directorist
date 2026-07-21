@@ -162,7 +162,7 @@ class Helper
                 break;
                 
             case 'number':
-                echo '<input type="number" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
+                echo '<input type="number" step="any" inputmode="decimal" name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" value="' . esc_attr($value) . '" placeholder="' . esc_attr($field_placeholder) . '" />';
                 break;
                 
             case 'date':
@@ -182,7 +182,7 @@ class Helper
                 break;
                 
             case 'select':
-                echo '<select name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" data-options=\'' . json_encode($field_options) . '\'>';
+                echo '<select name="' . esc_attr($field_name) . '" id="' . esc_attr($field_id) . '" class="' . esc_attr($classes) . '" data-options="' . esc_attr( wp_json_encode( $field_options ) ) . '">';
                 echo '<option value="">' . esc_html($field_placeholder) . '</option>';
                 if (!empty($field_options) && is_array($field_options)) {
                     foreach ($field_options as $option) {
