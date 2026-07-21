@@ -55,7 +55,7 @@ class DAF_Scripts {
         );
     }
 
-    private function enqueue_repeater_assets() {
+    private function enqueue_repeater_style() {
         if ( file_exists( Helper::get_file_dir() . 'assets/css/repeater.css' ) ) {
             wp_enqueue_style(
                 'daf-repeater-style',
@@ -64,6 +64,10 @@ class DAF_Scripts {
                 $this->get_asset_version( 'assets/css/repeater.css' )
             );
         }
+    }
+
+    private function enqueue_repeater_assets() {
+        $this->enqueue_repeater_style();
 
         if ( file_exists( Helper::get_file_dir() . 'assets/js/repeater.js' ) ) {
             wp_enqueue_script(
@@ -128,6 +132,9 @@ class DAF_Scripts {
         if ( ! $is_single_listing ) {
             return;
         }
+
+        // The repeater stylesheet also covers the single-page repeater display.
+        $this->enqueue_repeater_style();
 
         $map_type = function_exists( 'get_directorist_option' ) ? get_directorist_option( 'select_listing_map' ) : '';
 
